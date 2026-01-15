@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Détails salle</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1>
+            <i class="fas fa-door-open"></i>
+            Détails de la salle
+        </h1>
+        <div>
+            <a th:href="@{/admin/salles/{id}/edit(id=${salle.id})}" class="btn btn-warning me-2">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            <a href="/admin/salles" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Informations principales -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 th:text="${salle.nom}"></h4>
+
+                    <div class="mb-3">
+                        <span th:switch="${salle.type}" class="badge fs-6">
+                            <span th:case="'AMPHI'" class="badge bg-primary">Amphithéâtre</span>
+                            <span th:case="'TD'" class="badge bg-warning">Salle de TD</span>
+                            <span th:case="'TP'" class="badge bg-success">Laboratoire</span>
+                            <span th:case="'BUREAU'" class="badge bg-info">Bureau</span>
+                            <span th:case="*" class="badge bg-secondary" th:text="${salle.type}"></span>
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <h5><i class="fas fa-users"></i> Capacité</h5>
+                        <p class="fs-4" th:text="${salle.capacite + ' places'}"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h5><i class="fas fa-map-marker-alt"></i> Localisation</h5>
+                        <div th:if="${salle.batiment}" th:text="${salle.batiment}"></div>
+                        <div th:if="${salle.etage}" th:text="${'Étage: ' + salle.etage}"></div>
+                        <div th:unless="${salle.batiment}" class="text-muted">
+                            Localisation non précisée
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <h5><i class="fas fa-toggle-on"></i> Statut</h5>
+                        <div th:if="${salle.disponible}">
+                            <span class="badge bg-success">
+                                <i class="fas fa-check-circle"></i> Disponible
+                            </span>
+                        </div>
+                        <div th:unless="${salle.disponible}">
+                            <span class="badge bg-danger">
+                                <i class="fas fa-times-circle"></i> Indisponible
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <form th:action="@{/admin/salles/{id}/toggle-disponibilite(id=${salle.id})}"
+                              method="post" class="d-grid">
+                            <button type="submit"
+                                    th:classappend="${salle.disponible} ? 'btn-danger' : 'btn-success'"
+                                    class="btn">
+                                <i th:if="${salle.disponible}" class="fas fa-times"></i>
+                                <i th:unless="${salle.disponible}" class="fas fa-check"></i>
+                                <span th:text="${salle.disponible} ? 'Rendre indisponible' : 'Rendre disponible'"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-chart-bar"></i> Statistiques</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>Séances programmées :</strong><br>
+                        <span class="badge bg-primary fs-5" th:text="${nombreSeances}"></span>
+                    </div>
+                    <div>
+                        <strong>Taux d'occupation :</strong><br>
+                        <div class="progress mt-2">
+                            <div class="progress-bar"
+                                 role="progressbar"
+                                 th:style="'width: ' + ${(nombreSeances * 100) / 40} + '%'"
+                                 th:attr="aria-valuenow=${(nombreSeances * 100) / 40}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                <span th:text="${#numbers.formatDecimal((nombreSeances * 100) / 40, 1, 1) + '%'}"></span>
+                            </div>
+                        </div>
+                        <small class="text-muted">Basé sur une semaine standard de 40 heures</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Détails et équipement -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Détails de la salle</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Équipement :</h6>
+                            <div th:if="${salle.equipement}">
+                                <p th:text="${salle.equipement}"></p>
+                            </div>
+                            <div th:unless="${salle.equipement}" class="text-muted">
+                                Aucun équipement spécifique
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Remarques :</h6>
+                            <div th:if="${salle.remarques}">
+                                <p th:text="${salle.remarques}"></p>
+                            </div>
+                            <div th:unless="${salle.remarques}" class="text-muted">
+                                Aucune remarque
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6>Identification :</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>ID :</strong> <code th:text="${salle.id}"></code>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Date de création :</strong><br>
+                                <span th:text="${#temporals.format(salle.dateCreation, 'dd/MM/yyyy')}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emploi du temps de la salle -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-calendar-alt"></i> Emploi du temps de la semaine</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                            <tr>
+                                <th width="10%">Heure</th>
+                                <th width="18%">Lundi</th>
+                                <th width="18%">Mardi</th>
+                                <th width="18%">Mercredi</th>
+                                <th width="18%">Jeudi</th>
+                                <th width="18%">Vendredi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="heure : ${#numbers.sequence(8, 18)}">
+                                <td class="text-center fw-bold" th:text="${heure + ':00'}"></td>
+                                <td th:each="jour : ${#numbers.sequence(1, 5)}">
+                                    <div th:if="${salle.seances != null}">
+                                        <div th:each="seance : ${salle.seances}">
+                                            <div th:if="${#temporals.dayOfWeek(seance.dateHeure).getValue() == jour and
+                                                             #temporals.hour(seance.dateHeure) == heure}">
+                                                <div class="card mb-2 border-0"
+                                                     th:classappend="${seance.typeSeance == 'COURS' ? 'bg-primary' :
+                                                                        seance.typeSeance == 'TD' ? 'bg-warning' :
+                                                                        'bg-success'}">
+                                                    <div class="card-body p-2 text-white">
+                                                        <small>
+                                                            <strong th:text="${seance.module.nom}"></strong><br>
+                                                            <span th:text="${seance.enseignant.nom}"></span><br>
+                                                            <span th:text="${seance.groupe}"></span>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:unless="${salle.seances != null}" class="text-center text-muted small">
+                                        -
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div th:if="${salle.seances != null and not salle.seances.isEmpty()}" class="mt-3">
+                        <h6>Liste des séances :</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Enseignant</th>
+                                    <th>Groupe</th>
+                                    <th>Date et heure</th>
+                                    <th>Durée</th>
+                                    <th>Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="seance : ${salle.seances}">
+                                    <td th:text="${seance.module.nom}"></td>
+                                    <td th:text="${seance.enseignant.nom + ' ' + seance.enseignant.prenom}"></td>
+                                    <td>
+                                        <span class="badge bg-info" th:text="${seance.groupe}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${#temporals.format(seance.dateHeure, 'dd/MM/yyyy HH:mm')}"></span>
+                                    </td>
+                                    <td th:text="${seance.duree + 'h'}"></td>
+                                    <td>
+                                            <span th:switch="${seance.typeSeance}" class="badge">
+                                                <span th:case="'COURS'" class="badge bg-primary">Cours</span>
+                                                <span th:case="'TD'" class="badge bg-warning">TD</span>
+                                                <span th:case="'TP'" class="badge bg-success">TP</span>
+                                                <span th:case="*" class="badge bg-secondary" th:text="${seance.typeSeance}"></span>
+                                            </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div th:if="${salle.seances == null or salle.seances.isEmpty()}" class="text-center py-4">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Aucune séance programmée</h5>
+                        <p class="text-muted">Cette salle n'a pas de séance prévue pour le moment.</p>
+                        <a href="/admin/emploi-temps/create" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Programmer une séance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

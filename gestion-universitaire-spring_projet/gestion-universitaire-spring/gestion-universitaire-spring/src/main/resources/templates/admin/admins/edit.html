@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier l'Administrateur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: #2c3e50;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: #34495e;
+            border-left: 4px solid #3498db;
+        }
+        .content {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+            <div class="position-sticky pt-3">
+                <div class="text-center text-white p-3">
+                    <h4><i class="fas fa-university"></i> Administration</h4>
+                    <p class="text-muted small">Bienvenue, <span th:text="${user.nom}"></span></p>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/dashboard">
+                            <i class="fas fa-tachometer-alt"></i> Tableau de bord
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/etudiants">
+                            <i class="fas fa-users"></i> Étudiants
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/enseignants">
+                            <i class="fas fa-chalkboard-teacher"></i> Enseignants
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/modules">
+                            <i class="fas fa-book"></i> Modules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/emploi-temps">
+                            <i class="fas fa-calendar-alt"></i> Emploi du temps
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/filieres">
+                            <i class="fas fa-graduation-cap"></i> Filières
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/salles">
+                            <i class="fas fa-door-open"></i> Salles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin/admins">
+                            <i class="fas fa-user-shield"></i> Administrateurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/profile">
+                            <i class="fas fa-user"></i> Mon profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1><i class="fas fa-edit"></i> Modifier l'Administrateur</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/admins" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <!-- Formulaire de modification -->
+            <div class="form-container p-4">
+                <form th:action="@{/admin/admins/update/{id}(id=${admin.id})}" th:object="${admin}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{role}">
+                    <input type="hidden" th:field="*{password}">
+                    <input type="hidden" th:field="*{createdAt}">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nom" class="form-label">Nom <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="nom" th:field="*{nom}"
+                                   placeholder="Entrez le nom" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="prenom" class="form-label">Prénom <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="prenom" th:field="*{prenom}"
+                                   placeholder="Entrez le prénom" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}"
+                                   placeholder="exemple@universite.ma" required>
+                            <div class="form-text">
+                                L'email sera utilisé pour la connexion au système.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="departement" class="form-label">Département/Rôle</label>
+                            <input type="text" class="form-control" id="departement" th:field="*{departement}"
+                                   placeholder="Ex: Direction, Informatique, Pédagogie...">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Informations système</label>
+                        <div class="border p-3 rounded bg-light">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>ID :</strong> <span th:text="${admin.id}"></span></p>
+                                    <p class="mb-1"><strong>Rôle :</strong> Administrateur</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1">
+                                        <strong>Créé le :</strong>
+                                        <span th:text="${admin.createdAt ? #dates.format(admin.createdAt, 'dd/MM/yyyy HH:mm') : 'Non disponible'}"></span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <strong>Modifié le :</strong>
+                                        <span th:text="${admin.updatedAt ? #dates.format(admin.updatedAt, 'dd/MM/yyyy HH:mm') : 'Jamais modifié'}"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Changement de mot de passe (optionnel) -->
+                    <div class="mb-4">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="changePasswordToggle">
+                            <label class="form-check-label" for="changePasswordToggle">
+                                <strong>Changer le mot de passe</strong>
+                            </label>
+                        </div>
+
+                        <div id="passwordFields" style="display: none;">
+                            <div class="border p-3 rounded bg-light">
+                                <h6 class="mb-3">Nouveau mot de passe</h6>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+                                        <input type="password" class="form-control" id="newPassword"
+                                               placeholder="Laissez vide pour ne pas changer">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="confirmNewPassword" class="form-label">Confirmer le nouveau mot de passe</label>
+                                        <input type="password" class="form-control" id="confirmNewPassword"
+                                               placeholder="Retapez le mot de passe">
+                                    </div>
+                                </div>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle"></i>
+                                    Le mot de passe doit contenir au moins 8 caractères.
+                                    Si vous laissez vide, le mot de passe actuel sera conservé.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a th:href="@{/admin/admins}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times"></i> Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Enregistrer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Actions supplémentaires -->
+            <div th:if="${admin.id != user.id}" class="mt-3">
+                <div class="card border-danger">
+                    <div class="card-header bg-danger text-white">
+                        <i class="fas fa-exclamation-triangle"></i> Zone de danger
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Supprimer cet administrateur</h5>
+                        <p class="card-text">
+                            Cette action supprimera définitivement le compte de
+                            <strong th:text="${admin.nom + ' ' + admin.prenom}"></strong>.
+                            Cette action est irréversible.
+                        </p>
+                        <button class="btn btn-danger" onclick="confirmDelete(${admin.id}, '${admin.nom} ${admin.prenom}')">
+                            <i class="fas fa-trash"></i> Supprimer cet administrateur
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Confirmer la suppression</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer l'administrateur <strong id="adminName"></strong> ?</p>
+                <p class="text-danger"><i class="fas fa-exclamation-circle"></i> Cette action est irréversible !</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <form id="deleteForm" method="post" th:action="">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Toggle des champs de mot de passe
+    document.getElementById('changePasswordToggle').addEventListener('change', function() {
+        const passwordFields = document.getElementById('passwordFields');
+        if (this.checked) {
+            passwordFields.style.display = 'block';
+        } else {
+            passwordFields.style.display = 'none';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+        }
+    });
+
+    // Validation du formulaire
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const changePassword = document.getElementById('changePasswordToggle').checked;
+
+        if (changePassword) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                event.preventDefault();
+                alert('Les nouveaux mots de passe ne correspondent pas !');
+                return false;
+            }
+
+            if (newPassword && newPassword.length < 8) {
+                event.preventDefault();
+                alert('Le nouveau mot de passe doit contenir au moins 8 caractères !');
+                return false;
+            }
+        }
+
+        return true;
+    });
+
+    function confirmDelete(id, name) {
+        document.getElementById('adminName').textContent = name;
+        document.getElementById('deleteForm').action = '/admin/admins/delete/' + id;
+        new bootstrap.Modal(document.getElementById('deleteModal')).show();
+    }
+</script>
+</body>
+</html>

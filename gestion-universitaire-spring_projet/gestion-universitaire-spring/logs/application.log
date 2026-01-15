@@ -1,0 +1,2851 @@
+2026-01-11 14:23:47 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16h5m33s332ms166µs).
+2026-01-11 14:26:23 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 14:26:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 14:26:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 14:43:22 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 24956 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 14:43:22 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 14:43:22 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 14:43:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 14:43:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 110 ms. Found 10 JPA repository interfaces.
+2026-01-11 14:43:24 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 14:43:24 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 14:43:24 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 14:43:25 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 14:43:25 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2553 ms
+2026-01-11 14:43:25 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 14:43:25 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 14:43:25 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 14:43:25 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 14:43:26 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 14:43:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 14:43:26 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6009cd34
+2026-01-11 14:43:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 14:43:26 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 14:43:26 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 14:43:26 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 14:43:27 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 14:43:28 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 14:43:28 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 14:43:28 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 14:43:30 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 14:43:30 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5410bbdf, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@323dd422, org.springframework.security.web.context.SecurityContextHolderFilter@32647dde, org.springframework.security.web.header.HeaderWriterFilter@38300447, org.springframework.security.web.authentication.logout.LogoutFilter@6bac199f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7dfc0fda, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c943847, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2102eb7a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2f229f60, org.springframework.security.web.access.ExceptionTranslationFilter@605790e5, org.springframework.security.web.access.intercept.AuthorizationFilter@ffd26d1]
+2026-01-11 14:43:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 14:43:31 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 9.392 seconds (process running for 9.988)
+2026-01-11 14:45:22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 14:45:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 14:45:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 14:45:28 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 14524 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 14:45:28 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 14:45:28 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 14:45:29 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 14:45:29 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 117 ms. Found 10 JPA repository interfaces.
+2026-01-11 14:45:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 14:45:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 14:45:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 14:45:30 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 14:45:30 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2093 ms
+2026-01-11 14:45:31 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 14:45:31 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 14:45:31 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 14:45:31 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 14:45:31 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 14:45:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 14:45:31 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65859b44
+2026-01-11 14:45:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 14:45:31 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 14:45:31 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 14:45:32 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 14:45:33 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:33 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 14:45:33 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 14:45:33 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 14:45:34 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'securityConfig': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2026-01-11 14:45:34 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 14:45:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 14:45:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 14:45:34 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-01-11 14:45:34 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-11 14:45:34 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  securityConfig defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]
+↑     ↓
+|  userServiceImpl defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Despite circular references being allowed, the dependency cycle between beans could not be broken. Update your application to remove the dependency cycle.
+
+2026-01-11 14:45:53 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 1448 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 14:45:53 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 14:45:53 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 14:45:53 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 14:45:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 124 ms. Found 10 JPA repository interfaces.
+2026-01-11 14:45:54 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 14:45:54 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 14:45:54 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 14:45:55 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 14:45:55 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2082 ms
+2026-01-11 14:45:55 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 14:45:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 14:45:55 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 14:45:55 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 14:45:55 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 14:45:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 14:45:56 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60928a61
+2026-01-11 14:45:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 14:45:56 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 14:45:56 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 14:45:56 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 14:45:57 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 14:45:57 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 14:45:57 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 14:45:58 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 14:45:59 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 14:45:59 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@141cee26, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ecd3a9b, org.springframework.security.web.context.SecurityContextHolderFilter@7952348f, org.springframework.security.web.header.HeaderWriterFilter@2102eb7a, org.springframework.security.web.authentication.logout.LogoutFilter@ffd26d1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4a282c78, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7d26b390, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6acedf54, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58d9cd6, org.springframework.security.web.access.ExceptionTranslationFilter@24305eca, org.springframework.security.web.access.intercept.AuthorizationFilter@ae20523]
+2026-01-11 14:46:00 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 14:46:00 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.656 seconds (process running for 8.126)
+2026-01-11 14:54:05 [http-nio-8080-exec-6] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 14:54:05 [http-nio-8080-exec-6] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 14:54:05 [http-nio-8080-exec-6] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-01-11 14:57:41 [http-nio-8080-exec-7] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2026-01-11 14:58:25 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2026-01-11 15:01:06 [http-nio-8080-exec-5] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2026-01-11 15:09:10 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:09:10 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:09:10 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:09:15 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 18136 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:09:15 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:09:15 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:09:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:09:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 117 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:09:17 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:09:17 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:09:17 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:09:17 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:09:17 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2133 ms
+2026-01-11 15:09:17 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:09:17 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:09:17 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:09:18 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:09:18 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:09:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:09:18 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@45b7c97f
+2026-01-11 15:09:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:09:18 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:09:18 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:09:18 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:09:19 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:09:19 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:09:19 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:09:20 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:09:21 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'securityConfig': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2026-01-11 15:09:21 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:09:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:09:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:09:21 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-01-11 15:09:21 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-11 15:09:21 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  securityConfig defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]
+↑     ↓
+|  userServiceImpl defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Despite circular references being allowed, the dependency cycle between beans could not be broken. Update your application to remove the dependency cycle.
+
+2026-01-11 15:16:37 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 12488 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:16:37 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:16:37 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:16:38 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:16:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 122 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:16:39 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:16:39 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:16:39 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:16:40 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:16:40 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2188 ms
+2026-01-11 15:16:40 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:16:40 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:16:40 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:16:40 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:16:40 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:16:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:16:41 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2755617b
+2026-01-11 15:16:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:16:41 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:16:41 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:16:41 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:16:42 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:16:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:16:42 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:16:43 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:16:43 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'securityConfig': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2026-01-11 15:16:43 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:16:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:16:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:16:43 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-01-11 15:16:43 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-11 15:16:43 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  securityConfig defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]
+↑     ↓
+|  userServiceImpl defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Despite circular references being allowed, the dependency cycle between beans could not be broken. Update your application to remove the dependency cycle.
+
+2026-01-11 15:17:07 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 17232 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:17:07 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:17:07 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:17:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:17:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 116 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:17:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:17:09 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:17:09 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:17:09 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:17:09 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2031 ms
+2026-01-11 15:17:09 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:17:09 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:17:09 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:17:09 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:17:10 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:17:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:17:10 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65859b44
+2026-01-11 15:17:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:17:10 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:17:10 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:17:10 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:17:11 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:17:11 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:17:11 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:17:12 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:17:13 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'securityConfig': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2026-01-11 15:17:13 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:17:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:17:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:17:13 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-01-11 15:17:13 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-11 15:17:13 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  securityConfig defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]
+↑     ↓
+|  userServiceImpl defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Despite circular references being allowed, the dependency cycle between beans could not be broken. Update your application to remove the dependency cycle.
+
+2026-01-11 15:22:46 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 7820 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:22:46 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:22:46 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:22:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:22:47 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 122 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:22:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:22:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:22:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:22:48 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:22:48 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2162 ms
+2026-01-11 15:22:48 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:22:48 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:22:48 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:22:48 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:22:49 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:22:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:22:49 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ef3f661
+2026-01-11 15:22:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:22:49 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:22:49 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:22:49 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:22:50 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:22:50 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:22:50 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:22:51 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:22:52 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'securityConfig': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2026-01-11 15:22:52 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:22:52 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:22:52 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:22:52 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-01-11 15:22:52 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-11 15:22:52 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  securityConfig defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\config\SecurityConfig.class]
+↑     ↓
+|  userServiceImpl defined in file [C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes\com\universite\service\impl\UserServiceImpl.class]
+└─────┘
+
+
+Action:
+
+Despite circular references being allowed, the dependency cycle between beans could not be broken. Update your application to remove the dependency cycle.
+
+2026-01-11 15:26:12 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 24812 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:26:12 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:26:12 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:26:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:26:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 169 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:26:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:26:15 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:26:15 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:26:15 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:26:15 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2414 ms
+2026-01-11 15:26:15 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:26:15 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:26:15 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:26:15 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:26:15 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:26:15 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:26:16 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1de5cc88
+2026-01-11 15:26:16 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:26:16 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:26:16 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:26:16 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:26:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:26:17 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:26:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:26:18 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:26:19 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 15:26:19 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5e4a9c16, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@544ee437, org.springframework.security.web.context.SecurityContextHolderFilter@605790e5, org.springframework.security.web.header.HeaderWriterFilter@3e6a55fb, org.springframework.security.web.authentication.logout.LogoutFilter@311d8595, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@92a584f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@38300447, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@ace45e9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ffd26d1, org.springframework.security.web.access.ExceptionTranslationFilter@64a0a1c6, org.springframework.security.web.access.intercept.AuthorizationFilter@1ca2d595]
+2026-01-11 15:26:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 15:26:20 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 8.193 seconds (process running for 8.878)
+2026-01-11 15:26:28 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 15:26:28 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 15:26:28 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 15:26:36 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2026-01-11 15:28:06 [http-nio-8080-exec-10] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2026-01-11 15:34:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:34:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:34:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:34:51 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 22508 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:34:51 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:34:51 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:34:52 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:34:52 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 114 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:34:53 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:34:53 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:34:53 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:34:53 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:34:53 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2090 ms
+2026-01-11 15:34:53 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:34:53 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:34:53 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:34:53 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:34:54 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:34:54 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:34:54 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1de5cc88
+2026-01-11 15:34:54 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:34:54 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:34:54 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:34:54 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:34:55 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:34:55 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:34:55 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:34:56 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:34:57 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 15:34:57 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@775c865f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5410bbdf, org.springframework.security.web.context.SecurityContextHolderFilter@48c42253, org.springframework.security.web.header.HeaderWriterFilter@c7ec499, org.springframework.security.web.authentication.logout.LogoutFilter@67a6f2c4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@ffd26d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@ace45e9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5ca9a6a8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@323dd422, org.springframework.security.web.access.ExceptionTranslationFilter@7aead7d9, org.springframework.security.web.access.intercept.AuthorizationFilter@544ee437]
+2026-01-11 15:34:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 15:34:58 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.724 seconds (process running for 8.218)
+2026-01-11 15:35:03 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 15:35:03 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 15:35:03 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 15:35:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:35:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:35:19 [http-nio-8080-exec-4] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2026-01-11 15:35:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:35:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:35:19 [http-nio-8080-exec-4] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2026-01-11 15:35:33 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:35:33 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:35:33 [http-nio-8080-exec-8] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2026-01-11 15:35:33 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:35:33 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:35:33 [http-nio-8080-exec-8] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2026-01-11 15:39:19 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:39:19 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:39:19 [http-nio-8080-exec-1] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2026-01-11 15:39:19 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:39:19 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:39:19 [http-nio-8080-exec-1] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2026-01-11 15:40:19 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:40:19 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:40:19 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:40:19 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:43:38 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:43:38 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:43:38 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:43:41 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 1804 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:43:41 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:43:41 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:43:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:43:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 120 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:43:43 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:43:43 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:43:43 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:43:43 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:43:43 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2244 ms
+2026-01-11 15:43:43 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:43:44 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:43:44 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:43:44 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:43:44 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:43:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:43:44 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e4894d
+2026-01-11 15:43:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:43:44 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:43:44 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:43:44 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:43:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:43:46 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:43:46 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:43:46 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:43:47 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 15:43:48 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1b25ebea, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7aead7d9, org.springframework.security.web.context.SecurityContextHolderFilter@22fb60f3, org.springframework.security.web.header.HeaderWriterFilter@785aeba9, org.springframework.security.web.authentication.logout.LogoutFilter@420849f6, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@62df1f0e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5abfb698, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2ca2fcb5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@605790e5, org.springframework.security.web.access.ExceptionTranslationFilter@75f67ea7, org.springframework.security.web.access.intercept.AuthorizationFilter@64a0a1c6]
+2026-01-11 15:43:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 15:43:48 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 8.162 seconds (process running for 8.732)
+2026-01-11 15:44:15 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 15:44:15 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 15:44:15 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 15:44:23 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:44:23 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:44:24 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:44:24 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:44:51 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:44:51 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:44:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:44:57 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 956 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:44:57 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:44:57 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:44:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:44:58 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 123 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:44:59 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:44:59 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:44:59 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:44:59 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:44:59 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2026 ms
+2026-01-11 15:44:59 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:44:59 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:44:59 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:44:59 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:45:00 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:45:00 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:45:00 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2755617b
+2026-01-11 15:45:00 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:45:00 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:45:00 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:45:00 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:45:01 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:45:01 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:45:01 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:45:02 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:45:03 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 15:45:03 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2700609f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@141cee26, org.springframework.security.web.context.SecurityContextHolderFilter@685f43ca, org.springframework.security.web.header.HeaderWriterFilter@5ca9a6a8, org.springframework.security.web.authentication.logout.LogoutFilter@544ee437, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@ae20523, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4f3d49e4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@223c42b0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ecd3a9b, org.springframework.security.web.access.ExceptionTranslationFilter@352b5f3c, org.springframework.security.web.access.intercept.AuthorizationFilter@310045fc]
+2026-01-11 15:45:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 15:45:04 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.781 seconds (process running for 8.224)
+2026-01-11 15:45:33 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 15:45:33 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 15:45:33 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 15:45:41 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:45:41 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:45:41 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:45:41 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:45:57 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:45:57 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:46:14 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:46:14 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:46:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:46:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:50:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:50:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:50:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:50:45 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 11908 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:50:45 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:50:45 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:50:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:50:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 115 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:50:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:50:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:50:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:50:47 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:50:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2089 ms
+2026-01-11 15:50:48 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:50:48 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:50:48 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:50:48 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:50:48 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:50:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:50:48 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2755617b
+2026-01-11 15:50:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:50:48 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:50:48 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:50:49 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:50:50 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:50:50 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:50:50 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:50:50 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:50:52 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 15:50:52 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4ebf82d9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@685f43ca, org.springframework.security.web.context.SecurityContextHolderFilter@28b995b8, org.springframework.security.web.header.HeaderWriterFilter@3760f3e8, org.springframework.security.web.authentication.logout.LogoutFilter@605790e5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5ca9a6a8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@72dc9f9d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@19158d56, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7952348f, org.springframework.security.web.access.ExceptionTranslationFilter@2c7e2c5, org.springframework.security.web.access.intercept.AuthorizationFilter@24305eca]
+2026-01-11 15:50:53 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 15:50:53 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 8.024 seconds (process running for 8.661)
+2026-01-11 15:51:00 [http-nio-8080-exec-7] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 15:51:00 [http-nio-8080-exec-7] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 15:51:00 [http-nio-8080-exec-7] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 15:51:16 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:51:16 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 15:55:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:55:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 15:55:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 15:55:48 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 4676 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 15:55:48 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 15:55:48 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 15:55:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 15:55:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 123 ms. Found 10 JPA repository interfaces.
+2026-01-11 15:55:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 15:55:50 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 15:55:50 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 15:55:50 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 15:55:50 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2198 ms
+2026-01-11 15:55:50 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 15:55:50 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 15:55:50 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 15:55:50 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:55:51 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 15:55:51 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 15:55:51 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e4894d
+2026-01-11 15:55:51 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 15:55:51 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 15:55:51 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 15:55:51 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 15:55:52 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 15:55:52 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 15:55:52 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 15:55:53 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 15:55:54 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 15:55:55 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7dfc0fda, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@775c865f, org.springframework.security.web.context.SecurityContextHolderFilter@14484887, org.springframework.security.web.header.HeaderWriterFilter@605790e5, org.springframework.security.web.authentication.logout.LogoutFilter@3acae925, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@544ee437, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32647dde, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24305eca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5410bbdf, org.springframework.security.web.access.ExceptionTranslationFilter@1b25ebea, org.springframework.security.web.access.intercept.AuthorizationFilter@5e4a9c16]
+2026-01-11 15:55:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 15:55:55 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.997 seconds (process running for 8.541)
+2026-01-11 15:55:59 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 15:55:59 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 15:55:59 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 15:56:06 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 15:56:06 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 16:05:41 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:05:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 16:05:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 16:05:45 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 6016 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 16:05:45 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 16:05:45 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 16:05:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 16:05:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 118 ms. Found 10 JPA repository interfaces.
+2026-01-11 16:05:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 16:05:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 16:05:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 16:05:47 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 16:05:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2031 ms
+2026-01-11 16:05:47 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 16:05:47 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 16:05:47 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 16:05:47 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:05:47 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 16:05:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 16:05:48 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2755617b
+2026-01-11 16:05:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 16:05:48 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 16:05:48 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 16:05:48 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:05:49 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 16:05:49 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 16:05:49 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:05:50 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 16:05:51 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 16:05:51 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@352b5f3c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@24305eca, org.springframework.security.web.context.SecurityContextHolderFilter@39bbe17c, org.springframework.security.web.header.HeaderWriterFilter@3c964873, org.springframework.security.web.authentication.logout.LogoutFilter@62df1f0e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@ace45e9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73032867, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72dc9f9d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ca9a6a8, org.springframework.security.web.access.ExceptionTranslationFilter@b0e903a, org.springframework.security.web.access.intercept.AuthorizationFilter@32647dde]
+2026-01-11 16:05:52 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 16:05:52 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.588 seconds (process running for 8.213)
+2026-01-11 16:06:04 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 16:06:04 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 16:06:04 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 16:06:04 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 16:06:04 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 16:13:35 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:13:35 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 16:13:35 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 16:13:41 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 25436 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 16:13:41 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 16:13:41 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 16:13:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 16:13:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 116 ms. Found 10 JPA repository interfaces.
+2026-01-11 16:13:43 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 16:13:43 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 16:13:43 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 16:13:43 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 16:13:43 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2059 ms
+2026-01-11 16:13:43 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 16:13:43 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 16:13:43 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 16:13:43 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:13:43 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 16:13:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 16:13:44 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2755617b
+2026-01-11 16:13:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 16:13:44 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 16:13:44 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 16:13:44 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:13:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 16:13:45 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 16:13:45 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:13:46 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 16:13:47 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 16:13:47 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@352b5f3c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@24305eca, org.springframework.security.web.context.SecurityContextHolderFilter@39bbe17c, org.springframework.security.web.header.HeaderWriterFilter@3c964873, org.springframework.security.web.authentication.logout.LogoutFilter@62df1f0e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@ace45e9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73032867, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72dc9f9d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ca9a6a8, org.springframework.security.web.access.ExceptionTranslationFilter@b0e903a, org.springframework.security.web.access.intercept.AuthorizationFilter@32647dde]
+2026-01-11 16:13:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 16:13:48 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.806 seconds (process running for 8.266)
+2026-01-11 16:13:54 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 16:13:54 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 16:13:54 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 16:14:06 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 16:14:06 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 16:22:00 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:22:00 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 16:22:00 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 16:22:05 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 14012 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 16:22:05 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 16:22:05 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 16:22:06 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 16:22:06 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 117 ms. Found 10 JPA repository interfaces.
+2026-01-11 16:22:07 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 16:22:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 16:22:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 16:22:07 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 16:22:07 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2185 ms
+2026-01-11 16:22:07 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 16:22:07 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 16:22:07 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 16:22:08 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:22:08 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 16:22:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 16:22:08 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d9f5fce
+2026-01-11 16:22:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 16:22:08 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 16:22:08 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 16:22:08 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:22:09 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 16:22:10 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 16:22:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:22:10 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 16:22:11 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 16:22:12 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@685f43ca, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7952348f, org.springframework.security.web.context.SecurityContextHolderFilter@18f6ccf4, org.springframework.security.web.header.HeaderWriterFilter@73032867, org.springframework.security.web.authentication.logout.LogoutFilter@c7ec499, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2102eb7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@45ec6bb3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f02dc34, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f3d49e4, org.springframework.security.web.access.ExceptionTranslationFilter@39bbe17c, org.springframework.security.web.access.intercept.AuthorizationFilter@5ca9a6a8]
+2026-01-11 16:22:12 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 16:22:12 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 8.223 seconds (process running for 8.657)
+2026-01-11 16:26:22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:26:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 16:26:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-11 16:26:27 [main] INFO  c.u.GestionUniversitaireApplication - Starting GestionUniversitaireApplication using Java 17.0.14 with PID 24892 (C:\Users\lenovo\Downloads\gestion-universitaire-spring\gestion-universitaire-spring\target\classes started by lenovo in C:\Users\lenovo\Downloads\gestion-universitaire-spring)
+2026-01-11 16:26:27 [main] DEBUG c.u.GestionUniversitaireApplication - Running with Spring Boot v3.1.0, Spring v6.0.9
+2026-01-11 16:26:27 [main] INFO  c.u.GestionUniversitaireApplication - The following 1 profile is active: "dev"
+2026-01-11 16:26:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11 16:26:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 133 ms. Found 10 JPA repository interfaces.
+2026-01-11 16:26:29 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-01-11 16:26:29 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-11 16:26:29 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2026-01-11 16:26:29 [main] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring embedded WebApplicationContext
+2026-01-11 16:26:29 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2066 ms
+2026-01-11 16:26:29 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11 16:26:29 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.2.Final
+2026-01-11 16:26:29 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2026-01-11 16:26:29 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:26:30 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11 16:26:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-11 16:26:30 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d9f5fce
+2026-01-11 16:26:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-11 16:26:30 [main] INFO  org.hibernate.orm.dialect - HHH035001: Using dialect: org.hibernate.dialect.MySQL8Dialect, version: 8.0
+2026-01-11 16:26:30 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-11 16:26:30 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2026-01-11 16:26:31 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table enseignants 
+       modify column competences  TEXT
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table etudiants 
+       modify column competences  TEXT
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column feedback  TEXT
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_ds  float(53)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_finale  float(53)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_projet  float(53)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column note_tp  float(53)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table evaluations 
+       modify column participation  float(53)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column created_at  datetime(6)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table filieres 
+       modify column description  TEXT
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column competences_requises  TEXT
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table modules 
+       modify column created_at  datetime(6)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       modify column name  enum ('ROLE_ADMIN','ROLE_ENSEIGNANT','ROLE_ETUDIANT')
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column created_at  datetime(6)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_fin  datetime(6) not null
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table seances 
+       modify column date_heure  datetime(6) not null
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column created_at  datetime(6)
+2026-01-11 16:26:31 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       modify column updated_at  datetime(6)
+2026-01-11 16:26:31 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:26:32 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11 16:26:33 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11 16:26:34 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@141cee26, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ecd3a9b, org.springframework.security.web.context.SecurityContextHolderFilter@7952348f, org.springframework.security.web.header.HeaderWriterFilter@2102eb7a, org.springframework.security.web.authentication.logout.LogoutFilter@ffd26d1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4a282c78, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7d26b390, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6acedf54, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58d9cd6, org.springframework.security.web.access.ExceptionTranslationFilter@24305eca, org.springframework.security.web.access.intercept.AuthorizationFilter@ae20523]
+2026-01-11 16:26:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/gestion-universitaire'
+2026-01-11 16:26:34 [main] INFO  c.u.GestionUniversitaireApplication - Started GestionUniversitaireApplication in 7.853 seconds (process running for 8.297)
+2026-01-11 16:26:38 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[.[/gestion-universitaire] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11 16:26:38 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-11 16:26:38 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-11 16:27:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null then 1 
+            when u1_2.id is not null then 2 
+            when u1_3.id is not null then 3 
+            when u1_0.id is not null then 0 
+        end,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.nom,
+        u1_0.password,
+        u1_0.prenom,
+        u1_0.role_id,
+        u1_0.updated_at,
+        u1_1.departement,
+        u1_2.charge_horaire,
+        u1_2.competences,
+        u1_2.grade,
+        u1_2.id,
+        u1_2.specialite,
+        u1_3.competences,
+        u1_3.id,
+        u1_3.filiere_id,
+        u1_3.groupe,
+        u1_3.niveau 
+    from
+        users u1_0 
+    left join
+        admins u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        enseignants u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        etudiants u1_3 
+            on u1_0.id=u1_3.id 
+    where
+        u1_0.email=?
+2026-01-11 16:27:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.name 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-01-11 16:27:02 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        e1_0.id,
+        e1_1.created_at,
+        e1_1.email,
+        e1_1.nom,
+        e1_1.password,
+        e1_1.prenom,
+        e1_1.role_id,
+        e1_1.updated_at,
+        e1_0.competences,
+        e1_0.filiere_id,
+        e1_0.groupe,
+        e1_0.niveau 
+    from
+        etudiants e1_0 
+    join
+        users e1_1 
+            on e1_0.id=e1_1.id
+2026-01-11 16:27:02 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        e1_0.id,
+        e1_1.created_at,
+        e1_1.email,
+        e1_1.nom,
+        e1_1.password,
+        e1_1.prenom,
+        e1_1.role_id,
+        e1_1.updated_at,
+        e1_0.charge_horaire,
+        e1_0.competences,
+        e1_0.grade,
+        e1_0.specialite 
+    from
+        enseignants e1_0 
+    join
+        users e1_1 
+            on e1_0.id=e1_1.id
+2026-01-11 16:27:02 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.competences_requises,
+        c1_0.created_at,
+        c1_0.enseignant_id,
+        c1_0.filiere_id,
+        c1_0.nom,
+        c1_0.semestre,
+        c1_0.volume_horaire 
+    from
+        modules c1_0
+2026-01-11 16:27:02 [http-nio-8080-exec-1] ERROR org.thymeleaf.TemplateEngine - [THYMELEAF][http-nio-8080-exec-1] Exception processing template "admin/dashboard": An error happened during template parsing (template: "class path resource [templates/admin/dashboard.html]")
+org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/admin/dashboard.html]")
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:241)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parseStandalone(AbstractMarkupTemplateParser.java:100)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:666)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1103)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1077)
+	at org.thymeleaf.spring6.view.ThymeleafView.renderFragment(ThymeleafView.java:372)
+	at org.thymeleaf.spring6.view.ThymeleafView.render(ThymeleafView.java:192)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1415)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1159)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1098)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:166)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expression: "#httpServletRequest.requestURL" (template: "admin/dashboard" - line 83, col 31)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:393)
+	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
+	... 86 common frames omitted
+Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "#httpServletRequest.requestURL" (template: "admin/dashboard" - line 83, col 31)
+	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:292)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:144)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.handleOpenElementEnd(TemplateHandlerAdapterMarkupHandler.java:304)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.handleOpenElementEnd(InlinedOutputExpressionMarkupHandler.java:278)
+	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.handleOpenElementEnd(OutputExpressionInlinePreProcessorHandler.java:186)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.handleOpenElementEnd(InlinedOutputExpressionMarkupHandler.java:124)
+	at org.attoparser.HtmlElement.handleOpenElementEnd(HtmlElement.java:109)
+	at org.attoparser.HtmlMarkupHandler.handleOpenElementEnd(HtmlMarkupHandler.java:297)
+	at org.attoparser.MarkupEventProcessorHandler.handleOpenElementEnd(MarkupEventProcessorHandler.java:402)
+	at org.attoparser.ParsingElementMarkupUtil.parseOpenElement(ParsingElementMarkupUtil.java:159)
+	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:710)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
+	... 88 common frames omitted
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property or field 'requestURL' cannot be found on null
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:218)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:105)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference$AccessorLValue.getValue(PropertyOrFieldReference.java:410)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:93)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:114)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:338)
+	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:265)
+	... 107 common frames omitted
+2026-01-11 16:27:02 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [/gestion-universitaire] threw exception [Request processing failed: org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/admin/dashboard.html]")] with root cause
+org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property or field 'requestURL' cannot be found on null
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:218)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:105)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference$AccessorLValue.getValue(PropertyOrFieldReference.java:410)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:93)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:114)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:338)
+	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:265)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:144)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.handleOpenElementEnd(TemplateHandlerAdapterMarkupHandler.java:304)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.handleOpenElementEnd(InlinedOutputExpressionMarkupHandler.java:278)
+	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.handleOpenElementEnd(OutputExpressionInlinePreProcessorHandler.java:186)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.handleOpenElementEnd(InlinedOutputExpressionMarkupHandler.java:124)
+	at org.attoparser.HtmlElement.handleOpenElementEnd(HtmlElement.java:109)
+	at org.attoparser.HtmlMarkupHandler.handleOpenElementEnd(HtmlMarkupHandler.java:297)
+	at org.attoparser.MarkupEventProcessorHandler.handleOpenElementEnd(MarkupEventProcessorHandler.java:402)
+	at org.attoparser.ParsingElementMarkupUtil.parseOpenElement(ParsingElementMarkupUtil.java:159)
+	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:710)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
+	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parseStandalone(AbstractMarkupTemplateParser.java:100)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:666)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1103)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1077)
+	at org.thymeleaf.spring6.view.ThymeleafView.renderFragment(ThymeleafView.java:372)
+	at org.thymeleaf.spring6.view.ThymeleafView.render(ThymeleafView.java:192)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1415)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1159)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1098)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:166)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2026-01-11 16:33:56 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11 16:33:56 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-11 16:33:56 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

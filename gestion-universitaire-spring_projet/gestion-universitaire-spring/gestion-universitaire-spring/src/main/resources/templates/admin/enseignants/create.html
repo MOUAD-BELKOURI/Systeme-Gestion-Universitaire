@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Créer un Enseignant</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-chalkboard-teacher text-primary"></i> Créer un nouvel enseignant</h1>
+        <div>
+            <a th:href="@{/admin/enseignants}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <!-- Alerts -->
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <i class="fas fa-check-circle me-2"></i>
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/admin/enseignants/create}" th:object="${registerRequest}" method="post">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- Informations Personnelles -->
+                        <h5 class="mb-4"><i class="fas fa-id-card text-primary me-2"></i>Informations personnelles</h5>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nom <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{nom}"
+                                   placeholder="Entrez le nom"
+                                   required>
+                            <div th:if="${#fields.hasErrors('nom')}" class="text-danger small">
+                                <span th:errors="*{nom}"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Prénom <span class="text-danger">*</span></label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{prenom}"
+                                   placeholder="Entrez le prénom"
+                                   required>
+                            <div th:if="${#fields.hasErrors('prenom')}" class="text-danger small">
+                                <span th:errors="*{prenom}"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">@</span>
+                                <input type="email"
+                                       class="form-control"
+                                       th:field="*{email}"
+                                       placeholder="exemple@universite.ma"
+                                       required>
+                            </div>
+                            <div class="form-text">Utilisé pour la connexion</div>
+                            <div th:if="${#fields.hasErrors('email')}" class="text-danger small">
+                                <span th:errors="*{email}"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Mot de passe <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="password"
+                                       class="form-control"
+                                       th:field="*{password}"
+                                       placeholder="********"
+                                       required
+                                       minlength="6">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">Minimum 6 caractères</div>
+                            <div th:if="${#fields.hasErrors('password')}" class="text-danger small">
+                                <span th:errors="*{password}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <!-- Informations Professionnelles -->
+                        <h5 class="mb-4"><i class="fas fa-briefcase text-primary me-2"></i>Informations professionnelles</h5>
+
+                        <div class="mb-3">
+                            <label class="form-label">Spécialité</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{specialite}"
+                                   placeholder="Ex: Informatique, Mathématiques, Physique">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Grade</label>
+                            <select class="form-select" th:field="*{grade}">
+                                <option value="">Sélectionnez un grade</option>
+                                <option value="Professeur">Professeur</option>
+                                <option value="Maître de conférences">Maître de conférences</option>
+                                <option value="Chargé de cours">Chargé de cours</option>
+                                <option value="Assistant">Assistant</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Charge horaire (heures/semaine)</label>
+                            <input type="number"
+                                   class="form-control"
+                                   th:field="*{chargeHoraire}"
+                                   placeholder="0"
+                                   min="0"
+                                   max="40">
+                            <div class="form-text">Nombre d'heures d'enseignement par semaine</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Compétences et domaines d'expertise</label>
+                            <textarea class="form-control"
+                                      th:field="*{competences}"
+                                      rows="3"
+                                      placeholder="Listez les compétences (séparées par des virgules)"></textarea>
+                            <div class="form-text">Ex: Java, Python, Intelligence Artificielle, Base de données</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden Role Field -->
+                <input type="hidden" name="role" th:value="ROLE_ENSEIGNANT">
+
+                <!-- Form Actions -->
+                <div class="border-top pt-4 mt-3 text-end">
+                    <a th:href="@{/admin/enseignants}" class="btn btn-secondary me-2">
+                        <i class="fas fa-times"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Créer l'enseignant
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Help Box -->
+    <div class="alert alert-info mt-4">
+        <div class="d-flex">
+            <div class="me-3">
+                <i class="fas fa-info-circle fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="alert-heading mb-2">Informations importantes</h6>
+                <ul class="mb-0 ps-3">
+                    <li>Les champs marqués d'un astérisque (*) sont obligatoires</li>
+                    <li>L'enseignant recevra un email avec ses identifiants</li>
+                    <li>Le mot de passe doit contenir au minimum 6 caractères</li>
+                    <li>La charge horaire est exprimée en heures par semaine</li>
+                    <li>Modifications ultérieures possibles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Générer un email automatique
+    document.getElementById('nom').addEventListener('blur', function() {
+        const prenom = document.getElementById('prenom').value;
+        const nom = this.value;
+        const emailInput = document.getElementById('email');
+
+        if (prenom && nom && !emailInput.value) {
+            const email = prenom.toLowerCase() + '.' +
+                         nom.toLowerCase().replace(/\s+/g, '.') +
+                         '@universite.ma';
+            emailInput.value = email;
+        }
+    });
+
+    // Afficher/masquer le mot de passe
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        const icon = this.querySelector('i');
+        icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+    });
+
+    // Validation en temps réel
+    const form = document.querySelector('form');
+    const requiredFields = form.querySelectorAll('[required]');
+
+    requiredFields.forEach(field => {
+        field.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            }
+        });
+
+        if (!isValid) {
+            e.preventDefault();
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show';
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Veuillez remplir tous les champs obligatoires.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            const existingAlert = document.querySelector('.alert-danger');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            form.parentNode.insertBefore(alertDiv, form);
+        }
+    });
+</script>
+</body>
+</html>

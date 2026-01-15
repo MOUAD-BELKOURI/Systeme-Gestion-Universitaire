@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Gestion des enseignants</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-chalkboard-teacher"></i> Gestion des enseignants</h1>
+        <a href="/admin/enseignants/create" class="btn btn-success">
+            <i class="fas fa-user-plus"></i> Ajouter un enseignant
+        </a>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom complet</th>
+                        <th>Email</th>
+                        <th>Spécialité</th>
+                        <th>Grade</th>
+                        <th>Modules enseignés</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="enseignant : ${enseignants}">
+                        <td th:text="${enseignant.id}"></td>
+                        <td th:text="${enseignant.nom + ' ' + enseignant.prenom}"></td>
+                        <td th:text="${enseignant.email}"></td>
+                        <td th:text="${enseignant.specialite}"></td>
+                        <td th:text="${enseignant.grade}"></td>
+                        <td>
+                                <span class="badge bg-primary"
+                                      th:if="${enseignant.modules != null}"
+                                      th:text="${enseignant.modules.size()}">
+                                </span>
+                            <span class="badge bg-secondary" th:unless="${enseignant.modules != null}">
+                                    0
+                                </span>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr th:if="${enseignants.isEmpty()}">
+                        <td colspan="7" class="text-center">Aucun enseignant trouvé</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

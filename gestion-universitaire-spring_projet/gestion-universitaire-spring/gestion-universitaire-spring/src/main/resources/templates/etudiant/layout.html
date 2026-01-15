@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' - Étudiant - Université'}">Étudiant - Université</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/etudiant/dashboard}">
+            <i class="fas fa-user-graduate"></i> Université - Étudiant
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i>
+                        <span th:text="${user?.firstname + ' ' + user?.lastname}">Étudiant</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post" style="display: inline;">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 px-0">
+            <div class="sidebar">
+                <nav class="nav flex-column">
+                    <a class="nav-link" th:href="@{/etudiant/dashboard}"
+                       th:classappend="${#httpServletRequest.requestURI.contains('dashboard') ? 'active' : ''}">
+                        <i class="fas fa-tachometer-alt"></i> Tableau de bord
+                    </a>
+
+                    <a class="nav-link" th:href="@{/etudiant/emploi-temps}"
+                       th:classappend="${#httpServletRequest.requestURI.contains('emploi-temps') ? 'active' : ''}">
+                        <i class="fas fa-calendar-alt"></i> Mon emploi du temps
+                    </a>
+
+                    <a class="nav-link" th:href="@{/etudiant/evaluations}"
+                       th:classappend="${#httpServletRequest.requestURI.contains('evaluations') ? 'active' : ''}">
+                        <i class="fas fa-clipboard-check"></i> Mes notes
+                    </a>
+
+                    <a class="nav-link" th:href="@{/etudiant/modules}"
+                       th:classappend="${#httpServletRequest.requestURI.contains('modules') ? 'active' : ''}">
+                        <i class="fas fa-book"></i> Mes modules
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-lg-10 px-4 py-4">
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div th:replace="${content}"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

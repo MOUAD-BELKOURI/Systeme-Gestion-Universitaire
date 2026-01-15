@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Évaluations - Étudiant</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ... votre CSS existant ... */
+
+        /* Nouveaux styles */
+        .debug-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .test-data-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ffc107;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar (inchangé) -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <!-- ... votre sidebar existante ... -->
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+            <!-- Header avec boutons de debug -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">
+                    <i class="fas fa-chart-line"></i> Mes notes et évaluations
+                    <!-- Badge si données de test -->
+                    <span th:if="${testData}" class="test-data-badge">DONNÉES DE TEST</span>
+                </h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Imprimer
+                        </button>
+                        <!-- Bouton debug pour développement -->
+                        <a th:href="@{/etudiant/evaluations/debug}" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-bug"></i> Debug
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debug Info (développement seulement) -->
+            <div th:if="${debugMode}" class="debug-info">
+                <strong>Debug Info:</strong>
+                <ul class="mb-0">
+                    <li>Étudiant ID: <span th:text="${etudiant.id}"></span></li>
+                    <li>Nombre d'évaluations: <span th:text="${evaluations.size()}"></span></li>
+                    <li>Données de test: <span th:text="${testData ? 'OUI' : 'NON'}"></span></li>
+                </ul>
+            </div>
+
+            <!-- Statistics -->
+            <div class="row mb-4" th:if="${!evaluations.empty}">
+                <!-- ... vos statistiques existantes ... -->
+                <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h6 class="card-title">Moyenne Générale</h6>
+                            <h2 th:text="${#numbers.formatDecimal(moyenneGenerale, 1, 2)}">0.0</h2>
+                            <p class="card-text">/20</p>
+                            <small class="text-white-50" th:if="${testData}">Données de test</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- ... autres cartes de statistiques ... -->
+            </div>
+
+            <!-- No Evaluations Message avec bouton pour créer des données de test -->
+            <div th:if="${evaluations.empty}" class="alert alert-warning">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Aucune évaluation n'a été enregistrée pour le moment.</span>
+                    </div>
+                    <div>
+                        <a th:href="@{/etudiant/evaluations/add-test}" class="btn btn-sm btn-outline-dark">
+                            <i class="fas fa-plus"></i> Créer données de test
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluations Table -->
+            <div th:unless="${evaluations.empty}" class="card mb-4">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">
+                                <i class="fas fa-list"></i> Détail des évaluations
+                                <span class="badge bg-secondary" th:text="${evaluations.size()}"></span>
+                            </h5>
+                            <small class="text-muted" th:if="${testData}">Affichage des données de test</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-success" onclick="refreshPage()">
+                                <i class="fas fa-sync-alt"></i> Actualiser
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Filtres -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="searchInput"
+                                   placeholder="Rechercher un module..."
+                                   onkeyup="filterTable()">
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" id="statusFilter" onchange="filterTable()">
+                                <option value="">Tous les statuts</option>
+                                <option value="validated">Validés</option>
+                                <option value="failed">Échec</option>
+                                <option value="pending">En cours</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" id="semestreFilter" onchange="filterTable()">
+                                <option value="">Tous les semestres</option>
+                                <option th:each="semestre : ${evaluationsParSemestre.keySet()}"
+                                        th:value="${semestre}"
+                                        th:text="${semestre}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped" id="evaluationsTable">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>Module</th>
+                                <th class="text-center">Note TP</th>
+                                <th class="text-center">Note DS</th>
+                                <th class="text-center">Note Projet</th>
+                                <th class="text-center">Participation</th>
+                                <th class="text-center">Note Finale</th>
+                                <th class="text-center">Statut</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="evaluation : ${evaluations}"
+                                th:data-module="${evaluation.module != null ? evaluation.module.nom : 'N/A'}"
+                                th:data-status="${evaluation.noteFinale != null ? (evaluation.noteFinale >= 10 ? 'validated' : 'failed') : 'pending'}"
+                                th:data-semestre="${evaluation.module != null and evaluation.module.semestre != null ? evaluation.module.semestre : 'N/A'}">
+                                <!-- Module -->
+                                <td>
+                                    <strong th:text="${evaluation.module != null ? evaluation.module.nom : 'Module inconnu'}">Module</strong><br>
+                                    <small class="text-muted" th:text="${evaluation.module != null and evaluation.module.semestre != null ? 'Semestre ' + evaluation.module.semestre : 'Semestre inconnu'}"></small>
+                                </td>
+
+                                <!-- Note TP -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.noteTP != null}"
+                                          th:classappend="${evaluation.noteTP >= 16 ? 'grade-excellent' : evaluation.noteTP >= 14 ? 'grade-good' : evaluation.noteTP >= 10 ? 'grade-average' : 'grade-poor'}"
+                                          th:text="${#numbers.formatDecimal(evaluation.noteTP, 1, 2)}">
+                                    </span>
+                                    <span th:if="${evaluation.noteTP == null}" class="text-muted">-</span>
+                                </td>
+
+                                <!-- Note DS -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.noteDS != null}"
+                                          th:classappend="${evaluation.noteDS >= 16 ? 'grade-excellent' : evaluation.noteDS >= 14 ? 'grade-good' : evaluation.noteDS >= 10 ? 'grade-average' : 'grade-poor'}"
+                                          th:text="${#numbers.formatDecimal(evaluation.noteDS, 1, 2)}">
+                                    </span>
+                                    <span th:if="${evaluation.noteDS == null}" class="text-muted">-</span>
+                                </td>
+
+                                <!-- Note Projet -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.noteProjet != null}"
+                                          th:classappend="${evaluation.noteProjet >= 16 ? 'grade-excellent' : evaluation.noteProjet >= 14 ? 'grade-good' : evaluation.noteProjet >= 10 ? 'grade-average' : 'grade-poor'}"
+                                          th:text="${#numbers.formatDecimal(evaluation.noteProjet, 1, 2)}">
+                                    </span>
+                                    <span th:if="${evaluation.noteProjet == null}" class="text-muted">-</span>
+                                </td>
+
+                                <!-- Participation -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.participation != null}"
+                                          th:classappend="${evaluation.participation >= 16 ? 'grade-excellent' : evaluation.participation >= 14 ? 'grade-good' : evaluation.participation >= 10 ? 'grade-average' : 'grade-poor'}"
+                                          th:text="${#numbers.formatDecimal(evaluation.participation, 1, 2)}">
+                                    </span>
+                                    <span th:if="${evaluation.participation == null}" class="text-muted">-</span>
+                                </td>
+
+                                <!-- Note Finale -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.noteFinale != null}"
+                                          th:classappend="${evaluation.noteFinale >= 16 ? 'grade-excellent' : evaluation.noteFinale >= 14 ? 'grade-good' : evaluation.noteFinale >= 10 ? 'grade-average' : 'grade-poor'}"
+                                          th:text="${#numbers.formatDecimal(evaluation.noteFinale, 1, 2)}">
+                                    </span>
+                                    <span th:if="${evaluation.noteFinale == null}" class="text-muted">-</span>
+                                </td>
+
+                                <!-- Statut -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.noteFinale != null and evaluation.noteFinale >= 10}"
+                                          class="badge bg-success">Validé</span>
+                                    <span th:if="${evaluation.noteFinale != null and evaluation.noteFinale < 10}"
+                                          class="badge bg-danger">Échec</span>
+                                    <span th:if="${evaluation.noteFinale == null}"
+                                          class="badge bg-warning">En cours</span>
+                                </td>
+
+                                <!-- Date -->
+                                <td class="text-center">
+                                    <span th:if="${evaluation.dateEvaluation != null}"
+                                          th:text="${#dates.format(evaluation.dateEvaluation, 'dd/MM/yyyy')}">-</span>
+                                    <span th:if="${evaluation.dateEvaluation == null}" class="text-muted">-</span>
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="text-center">
+                                    <button th:if="${evaluation.feedback != null and !evaluation.feedback.isEmpty()}"
+                                            type="button"
+                                            class="btn btn-sm btn-outline-info"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#feedbackModal' + ${evaluation.id}">
+                                        <i class="fas fa-comment"></i> Feedback
+                                    </button>
+                                    <span th:if="${evaluation.feedback == null or evaluation.feedback.isEmpty()}"
+                                          class="text-muted">-</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination (optionnel) -->
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <span class="text-muted" id="rowCount">Affichage de <span th:text="${evaluations.size()}"></span> évaluations</span>
+                        </div>
+                        <div>
+                            <nav>
+                                <ul class="pagination pagination-sm mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">Précédent</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Suivant</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Modals (inchangés) -->
+            <div th:each="eval : ${evaluations}"
+                 th:if="${eval.feedback != null and !eval.feedback.isEmpty()}">
+                <!-- ... modals existants ... -->
+            </div>
+
+            <!-- Statistics Summary (inchangé) -->
+            <div th:if="${!evaluations.empty}" class="card">
+                <!-- ... votre code existant ... -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Initialiser les tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Initialiser les modals
+        var modalList = [].slice.call(document.querySelectorAll('.modal'));
+        modalList.map(function (modalEl) {
+            return new bootstrap.Modal(modalEl);
+        });
+    });
+
+    // Fonction pour filtrer le tableau
+    function filterTable() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const statusFilter = document.getElementById('statusFilter').value;
+        const semestreFilter = document.getElementById('semestreFilter').value;
+
+        const rows = document.querySelectorAll('#evaluationsTable tbody tr');
+        let visibleRows = 0;
+
+        rows.forEach(row => {
+            const moduleName = row.getAttribute('data-module').toLowerCase();
+            const status = row.getAttribute('data-status');
+            const semestre = row.getAttribute('data-semestre');
+
+            const matchesSearch = moduleName.includes(searchInput);
+            const matchesStatus = !statusFilter || status === statusFilter;
+            const matchesSemestre = !semestreFilter || semestre === semestreFilter;
+
+            if (matchesSearch && matchesStatus && matchesSemestre) {
+                row.style.display = '';
+                visibleRows++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Mettre à jour le compteur
+        document.getElementById('rowCount').textContent = `Affichage de ${visibleRows} évaluation(s)`;
+    }
+
+    // Fonction pour actualiser la page
+    function refreshPage() {
+        location.reload();
+    }
+
+    // Fonction pour exporter en PDF (simulé)
+    function exportToPDF() {
+        alert('Export PDF - Cette fonctionnalité sera implémentée prochainement');
+    }
+
+    // Fonction pour exporter en Excel (simulé)
+    function exportToExcel() {
+        alert('Export Excel - Cette fonctionnalité sera implémentée prochainement');
+    }
+
+    // Trier le tableau par colonne
+    function sortTable(columnIndex) {
+        const table = document.getElementById('evaluationsTable');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        const isAscending = table.getAttribute('data-sort-dir') !== 'asc';
+
+        rows.sort((a, b) => {
+            const aValue = a.cells[columnIndex].textContent.trim();
+            const bValue = b.cells[columnIndex].textContent.trim();
+
+            // Essayer de convertir en nombre
+            const aNum = parseFloat(aValue);
+            const bNum = parseFloat(bValue);
+
+            if (!isNaN(aNum) && !isNaN(bNum)) {
+                return isAscending ? aNum - bNum : bNum - aNum;
+            } else {
+                return isAscending ?
+                    aValue.localeCompare(bValue) :
+                    bValue.localeCompare(aValue);
+            }
+        });
+
+        // Réorganiser les lignes
+        rows.forEach(row => tbody.appendChild(row));
+
+        // Mettre à jour l'indicateur de tri
+        table.setAttribute('data-sort-dir', isAscending ? 'asc' : 'desc');
+    }
+
+    // Afficher les détails d'une évaluation
+    function showEvaluationDetails(evalId) {
+        window.location.href = '/etudiant/evaluation/' + evalId;
+    }
+</script>
+</body>
+</html>

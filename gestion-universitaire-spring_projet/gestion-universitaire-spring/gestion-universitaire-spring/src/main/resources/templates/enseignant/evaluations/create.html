@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une évaluation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%);
+            position: fixed;
+            width: 250px;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            margin: 2px 0;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link:hover {
+            background: rgba(52, 73, 94, 0.7);
+            border-left: 4px solid #3498db;
+            padding-left: 25px;
+        }
+        .sidebar .nav-link.active {
+            background: rgba(52, 73, 94, 0.9);
+            border-left: 4px solid #3498db;
+            font-weight: bold;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .grade-input {
+            max-width: 120px;
+        }
+        .final-grade {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <div class="position-sticky pt-3">
+                <div class="text-center text-white p-3">
+                    <h4><i class="fas fa-chalkboard-teacher"></i> Enseignant</h4>
+                    <p class="text-muted small">Bienvenue, <span th:text="${user.nom}"></span></p>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/enseignant/dashboard">
+                            <i class="fas fa-tachometer-alt"></i> Tableau de bord
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/enseignant/modules">
+                            <i class="fas fa-book"></i> Mes modules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/enseignant/emploi-temps">
+                            <i class="fas fa-calendar-alt"></i> Emploi du temps
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/enseignant/evaluations">
+                            <i class="fas fa-chart-line"></i> Évaluations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/logout">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/enseignant/dashboard">Tableau de bord</a></li>
+                        <li class="breadcrumb-item"><a href="/enseignant/evaluations">Évaluations</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/enseignant/evaluations/module/{id}(id=${module.id})}" th:text="${module.nom}"></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Nouvelle évaluation</li>
+                    </ol>
+                </nav>
+                <div>
+                    <a th:href="@{/enseignant/evaluations/module/{id}(id=${module.id})}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour
+                    </a>
+                </div>
+            </div>
+
+            <!-- Alert messages -->
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle"></i> <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Student info -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-user"></i> Informations de l'étudiant</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <strong>Nom complet :</strong><br>
+                                <span th:text="${etudiant.nom + ' ' + etudiant.prenom}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Niveau :</strong><br>
+                                <span th:text="${etudiant.niveau}"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <strong>Email :</strong><br>
+                                <span th:text="${etudiant.email}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Filière :</strong><br>
+                                <span th:text="${etudiant.filiere?.nom}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluation form -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-edit"></i> Saisie des notes</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/enseignant/evaluations/create}" method="post" th:object="${evaluationDTO}">
+                                <input type="hidden" th:field="*{etudiantId}" />
+                                <input type="hidden" th:field="*{moduleId}" />
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="noteTP" class="form-label">
+                                                <i class="fas fa-flask"></i> Note TP (20% - 0-20)
+                                            </label>
+                                            <input type="number" class="form-control grade-input" id="noteTP" th:field="*{noteTP}"
+                                                   min="0" max="20" step="0.25" placeholder="0.00">
+                                            <div class="form-text text-muted">Travaux pratiques</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="noteDS" class="form-label">
+                                                <i class="fas fa-file-alt"></i> Note DS (40% - 0-20)
+                                            </label>
+                                            <input type="number" class="form-control grade-input" id="noteDS" th:field="*{noteDS}"
+                                                   min="0" max="20" step="0.25" placeholder="0.00">
+                                            <div class="form-text text-muted">Devoir surveillé</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="noteProjet" class="form-label">
+                                                <i class="fas fa-project-diagram"></i> Note Projet (30% - 0-20)
+                                            </label>
+                                            <input type="number" class="form-control grade-input" id="noteProjet" th:field="*{noteProjet}"
+                                                   min="0" max="20" step="0.25" placeholder="0.00">
+                                            <div class="form-text text-muted">Projet</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="participation" class="form-label">
+                                                <i class="fas fa-comments"></i> Participation (10% - 0-20)
+                                            </label>
+                                            <input type="number" class="form-control grade-input" id="participation" th:field="*{participation}"
+                                                   min="0" max="20" step="0.25" placeholder="0.00">
+                                            <div class="form-text text-muted">Participation en classe</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="feedback" class="form-label">
+                                        <i class="fas fa-comment"></i> Commentaires/Feedback
+                                    </label>
+                                    <textarea class="form-control" id="feedback" th:field="*{feedback}" rows="4"
+                                              placeholder="Ajouter des commentaires sur les performances de l'étudiant..."></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/enseignant/evaluations/module/{id}(id=${module.id})}" class="btn btn-secondary me-md-2">
+                                        <i class="fas fa-times"></i> Annuler
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Enregistrer l'évaluation
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Final grade preview -->
+                    <div class="card final-grade mb-4">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <i class="fas fa-calculator"></i> Note Finale Calculée
+                            </h6>
+                            <div class="display-4 fw-bold mb-2" id="finalGrade">--</div>
+                            <p class="mb-0 small">Calcul automatique basé sur les coefficients</p>
+                        </div>
+                    </div>
+
+                    <!-- Grade breakdown -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0"><i class="fas fa-info-circle"></i> Répartition des notes</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <small class="text-muted">TP (Travaux Pratiques)</small>
+                                <div class="d-flex justify-content-between">
+                                    <span id="tpWeighted">--</span>
+                                    <span class="badge bg-light text-dark">20%</span>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">DS (Devoir Surveillé)</small>
+                                <div class="d-flex justify-content-between">
+                                    <span id="dsWeighted">--</span>
+                                    <span class="badge bg-light text-dark">40%</span>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Projet</small>
+                                <div class="d-flex justify-content-between">
+                                    <span id="projetWeighted">--</span>
+                                    <span class="badge bg-light text-dark">30%</span>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Participation</small>
+                                <div class="d-flex justify-content-between">
+                                    <span id="participationWeighted">--</span>
+                                    <span class="badge bg-light text-dark">10%</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total</span>
+                                <span id="totalWeighted">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Calculate final grade in real-time
+    function calculateFinalGrade() {
+        const tp = parseFloat(document.getElementById('noteTP').value) || 0;
+        const ds = parseFloat(document.getElementById('noteDS').value) || 0;
+        const projet = parseFloat(document.getElementById('noteProjet').value) || 0;
+        const participation = parseFloat(document.getElementById('participation').value) || 0;
+
+        const tpWeighted = tp * 0.2;
+        const dsWeighted = ds * 0.4;
+        const projetWeighted = projet * 0.3;
+        const participationWeighted = participation * 0.1;
+
+        const finalGrade = tpWeighted + dsWeighted + projetWeighted + participationWeighted;
+
+        document.getElementById('finalGrade').textContent = finalGrade.toFixed(2);
+        document.getElementById('tpWeighted').textContent = tpWeighted.toFixed(2);
+        document.getElementById('dsWeighted').textContent = dsWeighted.toFixed(2);
+        document.getElementById('projetWeighted').textContent = projetWeighted.toFixed(2);
+        document.getElementById('participationWeighted').textContent = participationWeighted.toFixed(2);
+        document.getElementById('totalWeighted').textContent = finalGrade.toFixed(2);
+    }
+
+    // Add event listeners to grade inputs
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = ['noteTP', 'noteDS', 'noteProjet', 'participation'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateFinalGrade);
+        });
+    });
+</script>
+</body>
+</html>

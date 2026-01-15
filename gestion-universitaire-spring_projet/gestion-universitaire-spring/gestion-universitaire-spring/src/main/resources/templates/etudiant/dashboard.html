@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Étudiant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%);
+            position: fixed;
+            width: 250px;
+            z-index: 1000;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            margin: 2px 0;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link:hover {
+            background: rgba(52, 73, 94, 0.7);
+            border-left: 4px solid #3498db;
+            padding-left: 25px;
+        }
+        .sidebar .nav-link.active {
+            background: rgba(52, 73, 94, 0.9);
+            border-left: 4px solid #3498db;
+            font-weight: bold;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .welcome-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        .stat-card {
+            border-radius: 10px;
+            transition: transform 0.3s;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .module-card {
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s;
+        }
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .seance-cours { border-left: 4px solid #007bff; }
+        .seance-td { border-left: 4px solid #ffc107; }
+        .seance-tp { border-left: 4px solid #28a745; }
+        .badge-semestre {
+            font-size: 0.8em;
+            padding: 3px 8px;
+        }
+        .progress-thin {
+            height: 5px;
+        }
+        .hover-shadow {
+            transition: box-shadow 0.3s;
+        }
+        .hover-shadow:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                min-height: auto;
+            }
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <div class="position-sticky pt-3">
+                <div class="text-center text-white p-3">
+                    <div class="avatar-circle bg-white text-primary mb-2">
+                        <span th:text="${#strings.toUpperCase(#strings.substring(user.nom, 0, 1)) + #strings.toUpperCase(#strings.substring(user.prenom, 0, 1))}"></span>
+                    </div>
+                    <h5 class="mb-1" th:text="${user.prenom + ' ' + user.nom}"></h5>
+                    <p class="text-light small mb-0" th:text="${user.email}"></p>
+                    <p class="text-muted small mb-0 mt-1">
+                        <span class="badge bg-info" th:text="${user.niveau}"></span>
+                        <span class="badge bg-primary ms-1" th:text="${user.groupe}"></span>
+                    </p>
+                    <p class="text-light small mt-1" th:text="${user.filiere != null ? user.filiere.nom : 'Filière non spécifiée'}"></p>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/etudiant/dashboard">
+                            <i class="fas fa-tachometer-alt me-2"></i> Tableau de bord
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/etudiant/emploi-temps">
+                            <i class="fas fa-calendar-alt me-2"></i> Emploi du temps
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/etudiant/evaluations">
+                            <i class="fas fa-chart-line me-2"></i> Mes notes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/etudiant/modules">
+                            <i class="fas fa-book me-2"></i> Mes modules
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/etudiant/profil">
+                            <i class="fas fa-user me-2"></i> Mon profil
+                        </a>
+                    </li>
+                    <li class="nav-item mt-3">
+                        <a class="nav-link text-danger" href="/logout">
+                            <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
+                        </a>
+                    </li>
+                    <!-- Lien debug (à retirer en production) -->
+                    <li class="nav-item mt-3">
+                        <a class="nav-link text-warning" href="/etudiant/debug-seances" target="_blank">
+                            <i class="fas fa-bug me-2"></i> Debug Séances
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+            <!-- En-tête -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">
+                    <i class="fas fa-tachometer-alt text-primary me-2"></i> Tableau de bord
+                </h1>
+                <div class="btn-toolbar">
+                    <div class="btn-group me-2">
+                        <form method="get" action="/etudiant/dashboard" class="d-flex">
+                            <input type="text"
+                                   id="datePicker"
+                                   name="date"
+                                   class="form-control form-control-sm me-2"
+                                   style="width: 150px;"
+                                   th:value="${selectedDate != null ? #temporals.format(selectedDate, 'dd/MM/yyyy') : #temporals.format(T(java.time.LocalDate).now(), 'dd/MM/yyyy')}">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages d'alerte -->
+            <div th:if="${#ctx.containsVariable('success')}"
+                 class="alert alert-success alert-dismissible fade show alert-custom"
+                 role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div th:if="${#ctx.containsVariable('error')}"
+                 class="alert alert-danger alert-dismissible fade show alert-custom"
+                 role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Vérification du profil -->
+            <div th:if="${!profilComplet and erreursProfil != null and not erreursProfil.isEmpty()}"
+                 class="alert alert-warning alert-dismissible fade show alert-custom" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Attention !</strong> Votre profil est incomplet.
+                <span th:each="erreur : ${erreursProfil}" th:text="${erreur + '. '}"></span>
+                <a href="/etudiant/profil" class="alert-link">Complétez votre profil</a> pour accéder à toutes les fonctionnalités.
+            </div>
+
+            <!-- Carte de bienvenue -->
+            <div class="card welcome-card mb-4 hover-shadow">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="mb-2">Bonjour, <span th:text="${user.prenom}"></span> !</h3>
+                            <p class="mb-0">
+                                <i class="fas fa-graduation-cap me-2"></i>
+                                <span th:text="${user.filiere != null ? user.filiere.nom : 'Filière non spécifiée'}"></span>
+                                • Niveau <span th:text="${user.niveau}"></span>
+                                • Groupe <span th:text="${user.groupe != null ? user.groupe : 'Non assigné'}"></span>
+                            </p>
+                            <p class="mb-0 mt-2">
+                                <i class="fas fa-book me-2"></i>
+                                Vous êtes inscrit à <strong th:text="${modules != null ? modules.size() : 0}"></strong> module(s).
+                            </p>
+                            <div th:if="${profilComplet}" class="mt-2">
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check me-1"></i> Profil complet
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end text-center mt-3 mt-md-0">
+                            <div class="avatar-circle bg-white text-primary mb-2">
+                                <span th:text="${#strings.toUpperCase(#strings.substring(user.nom, 0, 1)) + #strings.toUpperCase(#strings.substring(user.prenom, 0, 1))}"></span>
+                            </div>
+                            <p class="text-white mb-0">
+                                Semestre actuel :
+                                <span class="badge bg-light text-dark" th:text="${semestreActuel}"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="card stat-card bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title"><i class="fas fa-book me-2"></i> Modules</h5>
+                                    <h2 class="card-text" th:text="${modules != null ? modules.size() : 0}">0</h2>
+                                    <p class="card-text mb-0">Inscrits</p>
+                                </div>
+                                <div class="display-4 opacity-50">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="card stat-card bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title"><i class="fas fa-chart-line me-2"></i> Moyenne</h5>
+                                    <h2 class="card-text" th:text="${moyenne != null ? moyenne : 'N/A'}">N/A</h2>
+                                    <p class="card-text mb-0">Moyenne générale</p>
+                                </div>
+                                <div class="display-4 opacity-50">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="card stat-card bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title"><i class="fas fa-calendar-check me-2"></i> Séances</h5>
+                                    <h2 class="card-text" th:text="${seancesAujourdhui != null ? seancesAujourdhui : 0}">0</h2>
+                                    <p class="card-text mb-0">Aujourd'hui</p>
+                                </div>
+                                <div class="display-4 opacity-50">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="card stat-card bg-warning text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title"><i class="fas fa-clock me-2"></i> Heures</h5>
+                                    <h2 class="card-text" th:text="${totalHeures != null ? totalHeures + 'h' : '0h'}">0h</h2>
+                                    <p class="card-text mb-0">Volume horaire total</p>
+                                </div>
+                                <div class="display-4 opacity-50">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="row">
+                <!-- Prochaines séances -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card hover-shadow">
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="fas fa-calendar-day text-primary me-2"></i>
+                                Séances du
+                                <span th:text="${selectedDate != null ? #temporals.format(selectedDate, 'dd/MM/yyyy') : #temporals.format(T(java.time.LocalDate).now(), 'dd/MM/yyyy')}"></span>
+                            </h5>
+                            <span class="badge bg-primary" th:text="${seances != null ? seances.size() : 0}"></span>
+                        </div>
+                        <div class="card-body p-0">
+                            <!-- Message si profil incomplet -->
+                            <div th:if="${!profilComplet}" class="empty-state">
+                                <i class="fas fa-exclamation-circle text-warning"></i>
+                                <h5 class="text-warning">Profil incomplet</h5>
+                                <p class="mb-0">
+                                    <span th:each="erreur : ${erreursProfil}" th:text="${erreur + '. '}"></span>
+                                    Veuillez compléter votre profil pour voir vos séances.
+                                </p>
+                                <a href="/etudiant/profil" class="btn btn-warning mt-3">
+                                    <i class="fas fa-user-edit me-1"></i> Compléter mon profil
+                                </a>
+                            </div>
+
+                            <!-- Affichage des séances -->
+                            <div th:if="${profilComplet and seances != null and not seances.isEmpty()}"
+                                 class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th width="15%">Heure</th>
+                                        <th width="25%">Module</th>
+                                        <th width="20%">Enseignant</th>
+                                        <th width="15%">Salle</th>
+                                        <th width="15%">Type</th>
+                                        <th width="10%" class="text-center">Durée</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="seance : ${seances}"
+                                        th:classappend="${seance.typeSeance == 'COURS' ? 'seance-cours' : ''} +
+                                                            ${seance.typeSeance == 'TD' ? 'seance-td' : ''} +
+                                                            ${seance.typeSeance == 'TP' ? 'seance-tp' : ''}"
+                                        class="align-middle">
+                                        <td>
+                                            <strong th:text="${#temporals.format(seance.dateHeure, 'HH:mm')}"></strong>
+                                            <small class="d-block text-muted">
+                                                <span th:text="${#temporals.format(seance.dateHeure.plusMinutes(seance.duree != null ? seance.duree : 90), 'HH:mm')}"></span>
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/etudiant/module/{id}(id=${seance.module.id})}"
+                                               class="text-decoration-none">
+                                                <strong th:text="${seance.module.nom}"></strong>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span th:if="${seance.enseignant != null}"
+                                                  th:text="${seance.enseignant.nom + ' ' + seance.enseignant.prenom}"></span>
+                                            <span th:if="${seance.enseignant == null}" class="text-muted">Non affecté</span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${seance.salle != null}"
+                                                  class="badge bg-secondary"
+                                                  th:text="${seance.salle.nom}"></span>
+                                            <span th:if="${seance.salle == null}" class="text-muted">-</span>
+                                        </td>
+                                        <td>
+                                            <span th:switch="${seance.typeSeance}" class="badge">
+                                                <span th:case="'COURS'" class="bg-primary">Cours</span>
+                                                <span th:case="'TD'" class="bg-warning">TD</span>
+                                                <span th:case="'TP'" class="bg-success">TP</span>
+                                                <span th:case="*" class="bg-secondary" th:text="${seance.typeSeance}"></span>
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:text="${seance.duree}"></span>min
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div th:if="${profilComplet and (seances == null or seances.isEmpty())}"
+                                 class="empty-state">
+                                <i class="fas fa-calendar-times text-muted"></i>
+                                <h5 class="text-muted">Aucune séance prévue</h5>
+                                <p class="text-muted mb-0">Vous n'avez pas de séances programmées pour cette date.</p>
+                                <p class="text-muted small mt-2">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Filtres appliqués :
+                                    <span th:if="${user.groupe != null}">Groupe <span th:text="${user.groupe}"></span></span>
+                                    <span th:if="${user.filiere != null}">, Filière <span th:text="${user.filiere.nom}"></span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Total : <span th:text="${seances != null ? seances.size() : 0}"></span> séance(s)
+                                </small>
+                                <a href="/etudiant/emploi-temps" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-calendar-alt me-1"></i> Emploi du temps complet
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mes modules -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card hover-shadow h-100">
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="fas fa-book-open text-primary me-2"></i> Mes modules
+                            </h5>
+                            <span class="badge bg-primary" th:text="${modules != null ? modules.size() : 0}"></span>
+                        </div>
+                        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                            <!-- Message si profil incomplet -->
+                            <div th:if="${!profilComplet}" class="empty-state">
+                                <i class="fas fa-exclamation-circle text-warning"></i>
+                                <h5 class="text-warning">Profil incomplet</h5>
+                                <p class="mb-0">
+                                    Veuillez compléter votre profil pour voir vos modules.
+                                </p>
+                                <a href="/etudiant/profil" class="btn btn-warning mt-3">
+                                    <i class="fas fa-user-edit me-1"></i> Compléter mon profil
+                                </a>
+                            </div>
+
+                            <!-- Affichage des modules -->
+                            <div th:if="${profilComplet and modules != null and not modules.isEmpty()}">
+                                <!-- Groupement par semestre -->
+                                <div th:each="entry : ${modulesParSemestre}">
+                                    <h6 class="mt-3 mb-2 text-muted" th:text="'Semestre ' + ${entry.key}"></h6>
+                                    <div th:each="module : ${entry.value}" class="card module-card mb-3">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">
+                                                        <a th:href="@{/etudiant/module/{id}(id=${module.id})}"
+                                                           class="text-decoration-none text-dark">
+                                                            <span th:text="${module.nom}"></span>
+                                                        </a>
+                                                    </h6>
+                                                    <div class="d-flex align-items-center mt-1">
+                                                        <span class="badge badge-semestre bg-info me-2"
+                                                              th:text="${module.semestre != null ? module.semestre : 'N/A'}"></span>
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-clock me-1"></i>
+                                                            <span th:text="${module.volumeHoraire != null ? module.volumeHoraire : 0}"></span>h
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-link text-muted"
+                                                            type="button"
+                                                            data-bs-toggle="dropdown">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               th:href="@{/etudiant/module/{id}(id=${module.id})}">
+                                                                <i class="fas fa-eye me-2"></i> Détails
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               th:href="@{/etudiant/seances/{moduleId}(moduleId=${module.id})}">
+                                                                <i class="fas fa-calendar me-2"></i> Séances
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               th:href="@{/etudiant/notes/{moduleId}(moduleId=${module.id})}">
+                                                                <i class="fas fa-chart-line me-2"></i> Notes
+                                                            </a>
+                                                        </li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li>
+                                                            <form th:action="@{/etudiant/modules/desinscrire}"
+                                                                  method="post"
+                                                                  class="d-inline">
+                                                                <input type="hidden" name="moduleId" th:value="${module.id}">
+                                                                <button type="submit"
+                                                                        class="dropdown-item text-danger"
+                                                                        onclick="return confirm('Êtes-vous sûr de vouloir vous désinscrire de ce module ?')">
+                                                                    <i class="fas fa-times me-2"></i> Désinscrire
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-chalkboard-teacher me-1"></i>
+                                                    <span th:text="${module.enseignant != null ? module.enseignant.nom + ' ' + module.enseignant.prenom : 'Non affecté'}"></span>
+                                                </small>
+                                            </div>
+                                            <div class="mt-2">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-graduation-cap me-1"></i>
+                                                    <span th:text="${module.filiere != null ? module.filiere.nom : 'Filière inconnue'}"></span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${profilComplet and (modules == null or modules.isEmpty())}" class="empty-state">
+                                <i class="fas fa-book text-muted"></i>
+                                <h5 class="text-muted">Aucun module inscrit</h5>
+                                <p class="text-muted mb-3">Vous n'êtes inscrit à aucun module pour le moment.</p>
+                                <a href="/etudiant/modules" class="btn btn-primary">
+                                    <i class="fas fa-plus me-1"></i> S'inscrire à des modules
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <span th:text="${modulesDisponibles != null ? modulesDisponibles.size() : 0}"></span>
+                                    module(s) disponible(s)
+                                </small>
+                                <a href="/etudiant/modules" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-plus me-1"></i> Gérer mes modules
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dernières notes -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card hover-shadow">
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-line text-primary me-2"></i> Dernières évaluations
+                            </h5>
+                            <div>
+                                <small class="text-muted me-3">
+                                    Validées : <strong th:text="${evaluationsValidees}"></strong>/<span th:text="${totalEvaluations}"></span>
+                                </small>
+                                <a href="/etudiant/evaluations" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt me-1"></i> Toutes les notes
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div th:if="${evaluations != null and not evaluations.isEmpty()}" class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th width="25%">Module</th>
+                                        <th width="15%" class="text-center">Note TP</th>
+                                        <th width="15%" class="text-center">Note DS</th>
+                                        <th width="15%" class="text-center">Note Projet</th>
+                                        <th width="15%" class="text-center">Participation</th>
+                                        <th width="15%" class="text-center">Note finale</th>
+                                        <th width="10%" class="text-center">Statut</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="eval : ${evaluations}" class="align-middle">
+                                        <td>
+                                            <strong th:text="${eval.module != null ? eval.module.nom : 'Module inconnu'}"></strong>
+                                            <small class="d-block text-muted"
+                                                   th:text="${eval.module != null ? eval.module.semestre : ''}"></small>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${eval.noteTp != null}"
+                                                  th:class="${eval.noteTp >= 10 ? 'badge bg-success' : 'badge bg-danger'}"
+                                                  th:text="${#numbers.formatDecimal(eval.noteTp, 1, 2)}"></span>
+                                            <span th:if="${eval.noteTp == null}" class="badge bg-secondary">-</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${eval.noteDs != null}"
+                                                  th:class="${eval.noteDs >= 10 ? 'badge bg-success' : 'badge bg-danger'}"
+                                                  th:text="${#numbers.formatDecimal(eval.noteDs, 1, 2)}"></span>
+                                            <span th:if="${eval.noteDs == null}" class="badge bg-secondary">-</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${eval.noteProjet != null}"
+                                                  th:class="${eval.noteProjet >= 10 ? 'badge bg-success' : 'badge bg-danger'}"
+                                                  th:text="${#numbers.formatDecimal(eval.noteProjet, 1, 2)}"></span>
+                                            <span th:if="${eval.noteProjet == null}" class="badge bg-secondary">-</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${eval.participation != null}"
+                                                  class="badge bg-info"
+                                                  th:text="${#numbers.formatDecimal(eval.participation, 1, 2)}"></span>
+                                            <span th:if="${eval.participation == null}" class="badge bg-secondary">-</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <strong th:if="${eval.noteFinale != null}"
+                                                    th:class="${eval.noteFinale >= 10 ? 'text-success' : 'text-danger'}"
+                                                    th:text="${#numbers.formatDecimal(eval.noteFinale, 1, 2)}"></strong>
+                                            <span th:if="${eval.noteFinale == null}" class="text-muted">N/A</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${eval.noteFinale != null}"
+                                                  th:class="${eval.noteFinale >= 10 ? 'badge bg-success' : 'badge bg-danger'}"
+                                                  th:text="${eval.noteFinale >= 10 ? 'Validé' : 'Échec'}"></span>
+                                            <span th:if="${eval.noteFinale == null}" class="badge bg-warning">En cours</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div th:if="${evaluations == null or evaluations.isEmpty()}" class="empty-state">
+                                <i class="fas fa-chart-line text-muted"></i>
+                                <h5 class="text-muted">Aucune évaluation</h5>
+                                <p class="text-muted mb-0">Vous n'avez pas encore d'évaluations pour vos modules.</p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Moyenne générale :
+                                        <strong th:text="${moyenne != null ? moyenne : 'N/A'}"></strong>
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="text-muted me-3">
+                                        <span th:text="${evaluations != null ? evaluations.size() : 0}"></span> évaluation(s)
+                                    </small>
+                                    <a href="/etudiant/evaluations" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-chart-bar me-1"></i> Statistiques détaillées
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module récent -->
+            <div th:if="${profilComplet and moduleRecent != null}" class="row mt-4">
+                <div class="col-12">
+                    <div class="card hover-shadow">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-history text-primary me-2"></i> Module récemment ajouté
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 th:text="${moduleRecent.nom}"></h5>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <small class="text-muted">Semestre</small>
+                                            <p class="mb-0">
+                                                <span class="badge bg-info" th:text="${moduleRecent.semestre}"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted">Volume horaire</small>
+                                            <p class="mb-0" th:text="${moduleRecent.volumeHoraire + 'h'}"></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted">Enseignant</small>
+                                            <p class="mb-0">
+                                                <span th:text="${moduleRecent.enseignant != null ? moduleRecent.enseignant.nom + ' ' + moduleRecent.enseignant.prenom : 'Non affecté'}"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <a th:href="@{/etudiant/module/{id}(id=${moduleRecent.id})}"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt me-1"></i> Voir le module
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pied de page -->
+            <footer class="pt-3 mt-4 border-top text-muted small">
+                <div class="row">
+                    <div class="col-md-6">
+                        &copy; 2024 Université Management System. Tous droits réservés.
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <span th:text="'Dernière connexion : ' + ${#temporals.format(T(java.time.LocalDateTime).now(), 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+<script>
+    // Initialiser le date picker
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#datePicker", {
+            dateFormat: "d/m/Y",
+            locale: "fr",
+            defaultDate: "today",
+            allowInput: true
+        });
+
+        // Auto-submit on date change
+        document.getElementById('datePicker').addEventListener('change', function() {
+            this.form.submit();
+        });
+    });
+
+    // Tooltips Bootstrap
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
+</body>
+</html>

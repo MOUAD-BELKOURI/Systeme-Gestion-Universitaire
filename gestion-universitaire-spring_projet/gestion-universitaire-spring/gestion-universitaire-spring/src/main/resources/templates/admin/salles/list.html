@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Gestion des salles</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-building"></i> Gestion des salles</h1>
+        <div>
+            <a th:href="@{/admin/salles/create}" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Nouvelle salle
+            </a>
+            <a th:href="@{/admin/emploi-temps}" class="btn btn-primary">
+                <i class="fas fa-calendar-alt"></i> Emploi du temps
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Type</th>
+                        <th>Capacité</th>
+                        <th>Statut</th>
+                        <th>Séances</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="salle : ${salles}">
+                        <td th:text="${salle.id}"></td>
+                        <td>
+                            <a th:href="@{/admin/salles/{id}(id=${salle.id})}" class="text-decoration-none">
+                                <strong th:text="${salle.nom}"></strong>
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge bg-info" th:text="${salle.typeSalle}"></span>
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary" th:text="${salle.capacite}"></span>
+                        </td>
+                        <td>
+                            <span th:if="${salle.nombreSeances != null && salle.nombreSeances > 0}" class="badge bg-danger">
+                                <i class="fas fa-times"></i> Occupée
+                            </span>
+                            <span th:unless="${salle.nombreSeances != null && salle.nombreSeances > 0}" class="badge bg-success">
+                                <i class="fas fa-check"></i> Disponible
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary"
+                                  th:if="${salle.nombreSeances != null}"
+                                  th:text="${salle.nombreSeances}">
+                            </span>
+                            <span class="badge bg-secondary"
+                                  th:unless="${salle.nombreSeances != null}">
+                                0
+                            </span>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/salles/edit/{id}(id=${salle.id})}"
+                               class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a th:href="@{/admin/salles/{id}(id=${salle.id})}"
+                               class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <form th:action="@{/admin/salles/delete/{id}(id=${salle.id})}"
+                                  method="post" class="d-inline"
+                                  onsubmit="return confirmSuppression(event, ${salle.nombreSeances != null ? salle.nombreSeances : 0}, '${salle.nom}')">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(salles)}">
+                        <td colspan="7" class="text-center">Aucune salle trouvée</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div th:if="${totalPages > 1}" class="mt-4">
+                <nav>
+                    <ul class="pagination justify-content-center mb-0">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                            <a class="page-link" th:href="@{/admin/salles(page=${currentPage - 1}, search=${search}, type=${type}, disponible=${disponible})}">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </li>
+                        <li th:each="page : ${#numbers.sequence(0, totalPages-1)}"
+                            class="page-item" th:classappend="${currentPage == page} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/admin/salles(page=${page}, search=${search}, type=${type}, disponible=${disponible})}"
+                               th:text="${page + 1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
+                            <a class="page-link" th:href="@{/admin/salles(page=${currentPage + 1}, search=${search}, type=${type}, disponible=${disponible})}">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function confirmSuppression(event, nombreSeances, salleNom) {
+        if (nombreSeances > 0) {
+            alert('Impossible de supprimer la salle "' + salleNom + '". Elle a ' + nombreSeances + ' séance(s) programmée(s).');
+            event.preventDefault();
+            return false;
+        }
+
+        return confirm('Êtes-vous sûr de vouloir supprimer la salle "' + salleNom + '" ?');
+    }
+
+    // Auto-dismiss alerts after 5 seconds
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            const bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        });
+    }, 5000);
+</script>
+</body>
+</html>

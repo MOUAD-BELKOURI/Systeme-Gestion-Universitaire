@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Emploi du temps</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-calendar-alt"></i> Emploi du temps</h1>
+        <a href="/admin/emploi-temps/create" class="btn btn-success">
+            <i class="fas fa-plus-circle"></i> Nouvelle séance
+        </a>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Module</th>
+                        <th>Enseignant</th>
+                        <th>Groupe</th>
+                        <th>Salle</th>
+                        <th>Date et heure</th>
+                        <th>Durée</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="seance : ${seances}">
+                        <td th:text="${seance.id}"></td>
+                        <td th:text="${seance.module?.nom}"></td>
+                        <td th:text="${seance.enseignant?.nom + ' ' + seance.enseignant?.prenom}"></td>
+                        <td>
+                            <span class="badge bg-info" th:text="${seance.groupe}"></span>
+                        </td>
+                        <td th:text="${seance.salle?.nom}"></td>
+                        <td>
+                            <span th:text="${#temporals.format(seance.dateHeure, 'dd/MM/yyyy HH:mm')}"></span>
+                        </td>
+                        <td th:text="${seance.duree + ' min'}"></td>
+                        <td>
+                            <span th:switch="${seance.typeSeance}" class="badge">
+                                <span th:case="'COURS'" class="badge bg-primary">Cours</span>
+                                <span th:case="'TD'" class="badge bg-warning">TD</span>
+                                <span th:case="'TP'" class="badge bg-success">TP</span>
+                                <span th:case="'CM'" class="badge bg-primary">CM</span>
+                                <span th:case="*" class="badge bg-secondary" th:text="${seance.typeSeance}"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/emploi-temps/{id}(id=${seance.id})}" class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a th:href="@{/admin/emploi-temps/{id}/edit(id=${seance.id})}"
+                               class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form th:action="@{/admin/emploi-temps/{id}/delete(id=${seance.id})}"
+                                  method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cette séance ?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${seances.isEmpty()}">
+                        <td colspan="9" class="text-center">Aucune séance programmée</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue calendrier -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-calendar-week"></i> Vue semaine</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                            <tr>
+                                <th width="10%">Heure</th>
+                                <th width="18%">Lundi</th>
+                                <th width="18%">Mardi</th>
+                                <th width="18%">Mercredi</th>
+                                <th width="18%">Jeudi</th>
+                                <th width="18%">Vendredi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="heure : ${#numbers.sequence(8, 18)}">
+                                <td class="text-center fw-bold" th:text="${heure + ':00'}"></td>
+                                <td th:each="jour : ${#numbers.sequence(1, 5)}">
+                                    <div th:each="seance : ${seances}">
+                                        <!-- CORRECTION : enlevé .getValue() -->
+                                        <div th:if="${#temporals.dayOfWeek(seance.dateHeure) == jour and
+                                                     #temporals.hour(seance.dateHeure) == heure}">
+                                            <div class="card mb-2 border-0"
+                                                 th:classappend="${seance.typeSeance == 'CM' ? 'bg-primary' :
+                                                                    seance.typeSeance == 'TD' ? 'bg-warning' :
+                                                                    seance.typeSeance == 'TP' ? 'bg-success' :
+                                                                    'bg-info'}">
+                                                <div class="card-body p-2 text-white">
+                                                    <small>
+                                                        <strong th:text="${seance.module?.nom}"></strong><br>
+                                                        <span th:text="${seance.salle?.nom}"></span><br>
+                                                        <span th:text="${seance.groupe}"></span>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    // Script pour les confirmations de suppression
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('form[onsubmit]');
+        deleteForms.forEach(form => {
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                if (confirm('Êtes-vous sûr de vouloir supprimer cette séance ?')) {
+                    form.submit();
+                }
+            };
+        });
+    });
+</script>
+</body>
+</html>

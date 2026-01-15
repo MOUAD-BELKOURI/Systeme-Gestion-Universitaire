@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="sidebar" class="sidebar">
+  <div class="position-sticky pt-3">
+    <div class="text-center text-white p-4">
+      <div class="avatar-circle bg-primary mb-3 mx-auto" style="width: 80px; height: 80px;">
+                    <span th:text="${#strings.toUpperCase(#strings.substring(user.nom, 0, 1)) +
+                                    #strings.toUpperCase(#strings.substring(user.prenom, 0, 1))}">
+                    </span>
+      </div>
+      <h5 class="mb-1" th:text="${user.prenom + ' ' + user.nom}"></h5>
+      <p class="text-light small mb-0" th:text="${user.email}"></p>
+      <p class="text-muted small mb-0 mt-1">
+        <span class="badge bg-info">ADMIN</span>
+        <span th:if="${user.departement}"
+              class="badge bg-secondary ms-1"
+              th:text="${user.departement}"></span>
+      </p>
+    </div>
+
+    <ul class="nav flex-column mb-4">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/dashboard}" th:classappend="${#httpServletRequest.requestURI.contains('dashboard') ? 'active' : ''}">
+          <i class="fas fa-tachometer-alt me-2"></i> Tableau de bord
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/etudiants}" th:classappend="${#httpServletRequest.requestURI.contains('etudiants') ? 'active' : ''}">
+          <i class="fas fa-users me-2"></i> Étudiants
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${#httpServletRequest.requestURI.contains('enseignants') ? 'active' : ''}">
+          <i class="fas fa-chalkboard-teacher me-2"></i> Enseignants
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/modules}" th:classappend="${#httpServletRequest.requestURI.contains('modules') ? 'active' : ''}">
+          <i class="fas fa-book me-2"></i> Modules
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" th:href="@{/admin/inscriptions}" th:classappend="${#httpServletRequest.requestURI.contains('inscriptions') ? 'active' : ''}">
+          <i class="fas fa-user-graduate me-2"></i> Inscriptions
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/filieres}" th:classappend="${#httpServletRequest.requestURI.contains('filieres') ? 'active' : ''}">
+          <i class="fas fa-university me-2"></i> Filières
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/emploi-temps}" th:classappend="${#httpServletRequest.requestURI.contains('emploi-temps') ? 'active' : ''}">
+          <i class="fas fa-calendar-alt me-2"></i> Emploi du temps
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/salles}" th:classappend="${#httpServletRequest.requestURI.contains('salles') ? 'active' : ''}">
+          <i class="fas fa-door-closed me-2"></i> Salles
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/admins}" th:classappend="${#httpServletRequest.requestURI.contains('admins') ? 'active' : ''}">
+          <i class="fas fa-user-shield me-2"></i> Administrateurs
+        </a>
+      </li>
+    </ul>
+
+    <div class="px-3 pb-4">
+      <div class="card bg-dark text-white border-0">
+        <div class="card-body text-center">
+          <i class="fas fa-chart-line fa-2x mb-3 text-primary"></i>
+          <h6>Statistiques</h6>
+          <p class="small text-muted mb-0">Gestion complète du système universitaire</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-3 pb-3">
+      <a href="/logout" class="btn btn-outline-light w-100">
+        <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

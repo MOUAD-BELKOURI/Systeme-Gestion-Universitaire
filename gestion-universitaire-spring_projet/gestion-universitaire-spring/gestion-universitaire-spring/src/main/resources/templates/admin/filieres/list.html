@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Gestion des filières</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-graduation-cap"></i> Gestion des filières</h1>
+        <div>
+            <a href="/admin/filieres/create" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Nouvelle filière
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0"><i class="fas fa-list"></i> Liste des filières</h5>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Rechercher une filière..." id="searchInput">
+                        <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="filieresTable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom de la filière</th>
+                        <th>Description</th>
+                        <th>Statut</th>
+                        <th>Créée le</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="filiere : ${filieres}">
+                        <td th:text="${filiere.id}"></td>
+                        <td>
+                            <strong th:text="${filiere.nom}"></strong>
+                        </td>
+                        <td>
+                            <span th:if="${filiere.description}"
+                                  th:text="${#strings.length(filiere.description) > 50 ? #strings.substring(filiere.description,0,50) + '...' : filiere.description}">
+                            </span>
+                            <span th:unless="${filiere.description}"
+                                  class="text-muted">
+                                Aucune description
+                            </span>
+                        </td>
+                        <td>
+                            <!-- Remplacement de la colonne "Nombre de modules" par "Statut" -->
+                            <span class="badge bg-success">
+                                Active
+                            </span>
+                        </td>
+                        <td>
+                            <span th:if="${filiere.createdAt}"
+                                  th:text="${#temporals.format(filiere.createdAt, 'dd/MM/yyyy')}">
+                            </span>
+                            <span th:unless="${filiere.createdAt}"
+                                  class="text-muted">-</span>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/admin/filieres/edit/{id}(id=${filiere.id})}"
+                                   class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form th:action="@{/admin/filieres/{id}/delete(id=${filiere.id})}"
+                                      method="post" class="d-inline"
+                                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer la filière \'' + '[[${filiere.nom}]]' + '\' ?');">
+                                    <button type="submit" class="btn btn-sm btn-danger ms-1">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${filieres.isEmpty()}">
+                        <td colspan="6" class="text-center py-4">
+                            <div class="text-muted">
+                                <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                                <h5>Aucune filière trouvée</h5>
+                                <p>Commencez par créer une nouvelle filière</p>
+                                <a href="/admin/filieres/create" class="btn btn-success">
+                                    <i class="fas fa-plus-circle"></i> Créer une filière
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-md-6">
+                    <span th:text="${filieres.size()}"></span> filière(s) au total
+                </div>
+                <div class="col-md-6 text-end">
+                    <small>Dernière mise à jour : <span th:text="${#dates.createNow()}"></span></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Fonction de recherche
+    document.getElementById('searchButton').addEventListener('click', function() {
+        const searchText = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#filieresTable tbody tr');
+
+        rows.forEach(row => {
+            const nom = row.cells[1].textContent.toLowerCase();
+            const description = row.cells[2].textContent.toLowerCase();
+
+            if (nom.includes(searchText) || description.includes(searchText)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    // Recherche en temps réel
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        document.getElementById('searchButton').click();
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

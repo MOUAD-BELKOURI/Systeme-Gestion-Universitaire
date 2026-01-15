@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Gestion Universitaire</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+    .login-container {
+        max-width: 400px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .login-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    .login-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+    }
+    .login-body {
+        padding: 30px;
+    }
+    .btn-login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+        width: 100%;
+        padding: 12px;
+        font-weight: bold;
+    }
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h2><i class="fas fa-university"></i> Gestion Universitaire</h2>
+        <p class="mb-0">Système de gestion académique</p>
+      </div>
+
+      <div class="login-body">
+        <!-- IMPORTANT: action="/auth/login" et name="username"/"password" -->
+        <form th:action="@{/auth/login}" method="post">
+          <div th:if="${param.error}" class="alert alert-danger">
+            <i class="fas fa-exclamation-circle"></i> Identifiant ou mot de passe incorrect
+          </div>
+
+          <div th:if="${param.logout}" class="alert alert-success">
+            <i class="fas fa-check-circle"></i> Déconnexion réussie
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <!-- IMPORTANT: name="username" pour Spring Security -->
+            <input type="email" name="username" class="form-control"
+                   placeholder="email@exemple.com" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <!-- IMPORTANT: name="password" pour Spring Security -->
+            <input type="password" name="password" class="form-control"
+                   placeholder="Mot de passe" required>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember" name="remember-me">
+            <label class="form-check-label" for="remember">Se souvenir de moi</label>
+          </div>
+
+          <button type="submit" class="btn btn-login">
+            <i class="fas fa-sign-in-alt"></i> Se connecter
+          </button>
+        </form>
+
+        <div class="text-center mt-3">
+          <a href="/register" class="text-decoration-none">
+            <i class="fas fa-user-plus"></i> Créer un compte
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

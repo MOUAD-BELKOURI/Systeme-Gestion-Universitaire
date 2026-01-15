@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Gestion des modules</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-book"></i> Gestion des modules</h1>
+        <div>
+            <a th:href="@{/admin/modules/create}" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Nouveau module
+            </a>
+            <a th:href="@{/admin/affectations}" class="btn btn-primary">
+                <i class="fas fa-user-tag"></i> Affectations
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom du module</th>
+                        <th>Filière</th>
+                        <th>Semestre</th>
+                        <th>Enseignant</th>
+                        <th>Volume horaire</th>
+                        <th>Étudiants</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="module : ${modules}">
+                        <td th:text="${module.id}"></td>
+                        <td th:text="${module.nom}"></td>
+                        <td th:text="${module.filiere?.nom}"></td>
+                        <td>
+                            <span class="badge bg-info" th:text="${module.semestre}"></span>
+                        </td>
+                        <td>
+                                <span th:if="${module.enseignant != null}"
+                                      th:text="${module.enseignant.nom + ' ' + module.enseignant.prenom}">
+                                </span>
+                            <span th:unless="${module.enseignant != null}"
+                                  class="badge bg-warning">Non affecté</span>
+                        </td>
+                        <td th:text="${module.volumeHoraire + 'h'}"></td>
+                        <td>
+                                <span class="badge bg-primary"
+                                      th:if="${module.etudiants != null}"
+                                      th:text="${module.etudiants.size()}">
+                                </span>
+                            <span class="badge bg-secondary" th:unless="${module.etudiants != null}">
+                                    0
+                                </span>
+                        </td>
+                        <td>
+                            <!-- CORRECTION ICI : utilise /edit/{id} -->
+                            <a th:href="@{/admin/modules/edit/{id}(id=${module.id})}"
+                               class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <!-- Suppression AJAX pour rester sur la même page -->
+                            <button type="button"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="deleteModule(${module.id}, '${module.nom}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr th:if="${modules.isEmpty()}">
+                        <td colspan="8" class="text-center">Aucun module trouvé</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer le module "<span id="moduleName"></span>" ?
+                <div class="alert alert-warning mt-2">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Cette action est irréversible.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">
+                    <i class="fas fa-trash"></i> Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let moduleIdToDelete = null;
+    let moduleNameToDelete = null;
+
+    function deleteModule(id, name) {
+        moduleIdToDelete = id;
+        moduleNameToDelete = name;
+        document.getElementById('moduleName').textContent = name;
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+
+    function confirmDelete() {
+        if (moduleIdToDelete) {
+            $.ajax({
+                url: '/admin/modules/delete/' + moduleIdToDelete,
+                type: 'POST',
+                success: function(response) {
+                    // Fermer le modal
+                    const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+                    deleteModal.hide();
+
+                    // Recharger la page pour voir les changements
+                    location.reload();
+                },
+                error: function(xhr) {
+                    alert('Erreur lors de la suppression: ' + xhr.responseText);
+                }
+            });
+        }
+    }
+
+    // Alternative avec confirmation simple (sans AJAX)
+    function deleteModuleDirect(id, name) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer le module "' + name + '" ?')) {
+            // Créer un formulaire dynamique pour soumettre la suppression
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/admin/modules/delete/' + id;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
+</body>
+</html>

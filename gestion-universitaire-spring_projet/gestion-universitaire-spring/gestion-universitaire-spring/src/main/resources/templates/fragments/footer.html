@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="footer">
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // Initialiser DataTables
+    $(document).ready(function() {
+        $('.datatable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json'
+            },
+            pageLength: 10,
+            responsive: true
+        });
+
+        // Initialiser Flatpickr pour les dates
+        flatpickr('.datepicker', {
+            dateFormat: 'Y-m-d',
+            locale: 'fr'
+        });
+
+        flatpickr('.datetimepicker', {
+            enableTime: true,
+            dateFormat: 'Y-m-d H:i',
+            locale: 'fr'
+        });
+
+        // Confirmation de suppression
+        $('.delete-btn').on('click', function(e) {
+            e.preventDefault();
+            const form = $(this).closest('form');
+            const message = $(this).data('confirm') || 'Êtes-vous sûr de vouloir supprimer cet élément ?';
+
+            Swal.fire({
+                title: 'Confirmation',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
+        // Gestion des messages flash
+        const successMessage = "[[${#ctx.containsVariable('success') ? success : ''}]]";
+        const errorMessage = "[[${#ctx.containsVariable('error') ? error : ''}]]";
+        const warningMessage = "[[${#ctx.containsVariable('warning') ? warning : ''}]]";
+
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès',
+                text: successMessage,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: errorMessage
+            });
+        }
+
+        if (warningMessage) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Attention',
+                text: warningMessage
+            });
+        }
+    });
+
+    // Fonction pour exporter les données
+    function exportData(format) {
+        const table = $('.datatable').DataTable();
+        let data, filename, link;
+
+        if (format === 'csv') {
+            data = table.data().toArray();
+            filename = 'export.csv';
+            link = document.createElement('a');
+            link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(convertToCSV(data));
+        } else if (format === 'excel') {
+            // Implémenter l'export Excel si nécessaire
+            alert('Export Excel à implémenter');
+            return;
+        }
+
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function convertToCSV(data) {
+        const headers = Object.keys(data[0]);
+        const rows = data.map(row =>
+            headers.map(header =>
+                JSON.stringify(row[header], replacer)
+            ).join(',')
+        );
+        return [headers.join(','), ...rows].join('\n');
+    }
+
+    function replacer(key, value) {
+        return value === null ? '' : value;
+    }
+  </script>
+</div>
+</body>
+</html>

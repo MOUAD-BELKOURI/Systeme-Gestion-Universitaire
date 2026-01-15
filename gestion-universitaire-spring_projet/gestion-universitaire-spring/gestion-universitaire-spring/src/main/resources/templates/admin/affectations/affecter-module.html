@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affectation Module - Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .affectation-form {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 30px;
+    }
+    .form-section {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid #0d6efd;
+    }
+    .form-section.filiere {
+        border-left-color: #6f42c1;
+    }
+    .form-section.enseignant {
+        border-left-color: #198754;
+    }
+    .form-section.etudiants {
+        border-left-color: #fd7e14;
+    }
+    .student-checkbox {
+        margin-bottom: 8px;
+        padding: 8px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+    }
+    .student-checkbox:hover {
+        background-color: #f8f9fa;
+    }
+    .debug-info {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+<!-- Navigation simplifiée -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/admin/dashboard">
+      <i class="fas fa-university me-2"></i>Université Admin
+    </a>
+  </div>
+</nav>
+
+<div class="container-fluid mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb bg-white p-3 rounded shadow-sm">
+          <li class="breadcrumb-item">
+            <a href="/admin/dashboard" class="text-decoration-none">
+              <i class="fas fa-home"></i> Tableau de bord
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/admin/modules" class="text-decoration-none">
+              <i class="fas fa-book"></i> Modules
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-link"></i> Affecter Module
+          </li>
+        </ol>
+      </nav>
+
+      <!-- DEBUG SECTION - Affichez les données reçues -->
+      <div class="debug-info">
+        <h5><i class="fas fa-bug me-2"></i>Informations de débogage :</h5>
+        <p>Utilisateur : <strong th:text="${user?.prenom} + ' ' + ${user?.nom}">Non connecté</strong></p>
+        <p>Nombre de filières : <strong th:text="${filieres?.size() ?: 0}">0</strong></p>
+        <p>Nombre de modules : <strong th:text="${modules?.size() ?: 0}">0</strong></p>
+        <p>Nombre d'enseignants : <strong th:text="${enseignants?.size() ?: 0}">0</strong></p>
+
+        <div th:if="${filieres != null and not filieres.empty}">
+          <h6>Filières disponibles :</h6>
+          <ul>
+            <li th:each="filiere : ${filieres}"
+                th:text="${filiere.id} + ' - ' + ${filiere.nom}"></li>
+          </ul>
+        </div>
+        <div th:if="${filieres?.empty}">
+          <p class="text-danger">⚠️ Aucune filière trouvée !</p>
+        </div>
+      </div>
+
+      <!-- Messages d'alerte -->
+      <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+      <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+
+      <!-- Formulaire d'affectation -->
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-link me-2"></i> Affecter un Module
+          </h5>
+          <p class="mb-0 small">Affectez une filière, un enseignant et des étudiants à un module</p>
+        </div>
+
+        <div class="card-body">
+          <form th:action="@{/admin/affectations/affecter-complet}" method="post" id="affectationForm">
+            <!-- Champ caché pour les IDs des étudiants -->
+            <input type="hidden" id="etudiantIds" name="etudiantIds">
+
+            <!-- Section 1: Sélection du Module -->
+            <div class="form-section">
+              <h6 class="fw-bold mb-3 text-primary">
+                <i class="fas fa-book me-2"></i>1. Sélectionnez le Module
+              </h6>
+              <div class="mb-3">
+                <label for="moduleId" class="form-label fw-bold">Module</label>
+                <select class="form-control" id="moduleId" name="moduleId" required>
+                  <option value="">Choisir un module...</option>
+                  <!-- Option de test -->
+                  <option value="1">TEST Module Programmation Java</option>
+                  <option value="2">TEST Module Base de données</option>
+                  <!-- Options dynamiques -->
+                  <option th:each="module : ${modules}"
+                          th:value="${module.id}"
+                          th:text="${module.nom} + ' (Semestre ' + ${module.semestre} + ')'">
+                  </option>
+                </select>
+                <div class="form-text">Sélectionnez le module à affecter</div>
+              </div>
+            </div>
+
+            <!-- Section 2: Affectation de la Filière -->
+            <div class="form-section filiere">
+              <h6 class="fw-bold mb-3 text-purple">
+                <i class="fas fa-university me-2"></i>2. Affectez une Filière
+              </h6>
+              <div class="mb-3">
+                <label for="filiereId" class="form-label fw-bold">Filière</label>
+                <select class="form-control" id="filiereId" name="filiereId" required>
+                  <option value="">Choisir une filière...</option>
+                  <!-- Options de test -->
+                  <option value="1">TEST Filière Informatique</option>
+                  <option value="2">TEST Filière Mathématiques</option>
+                  <!-- Options dynamiques -->
+                  <option th:each="filiere : ${filieres}"
+                          th:value="${filiere.id}"
+                          th:text="${filiere.nom}">
+                  </option>
+                </select>
+                <div class="form-text">Affectez une filière à ce module</div>
+              </div>
+            </div>
+
+            <!-- Section 3: Affectation de l'Enseignant -->
+            <div class="form-section enseignant">
+              <h6 class="fw-bold mb-3 text-success">
+                <i class="fas fa-chalkboard-teacher me-2"></i>3. Affectez un Enseignant
+              </h6>
+              <div class="mb-3">
+                <label for="enseignantId" class="form-label fw-bold">Enseignant</label>
+                <select class="form-control" id="enseignantId" name="enseignantId" required>
+                  <option value="">Choisir un enseignant...</option>
+                  <!-- Options de test -->
+                  <option value="1">TEST Prof. Dupont Jean</option>
+                  <option value="2">TEST Prof. Martin Sophie</option>
+                  <!-- Options dynamiques -->
+                  <option th:each="enseignant : ${enseignants}"
+                          th:value="${enseignant.id}"
+                          th:text="${enseignant.nom} + ' ' + ${enseignant.prenom}">
+                  </option>
+                </select>
+                <div class="form-text">Sélectionnez l'enseignant responsable de ce module</div>
+              </div>
+            </div>
+
+            <!-- Section 4: Affectation des Étudiants (Optionnelle) -->
+            <div class="form-section etudiants">
+              <h6 class="fw-bold mb-3 text-warning">
+                <i class="fas fa-user-graduate me-2"></i>4. Affectez des Étudiants (Optionnel)
+              </h6>
+
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Cette fonctionnalité nécessite des étudiants dans la base de données.
+              </div>
+
+              <!-- Paramètres d'inscription -->
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="semestre" class="form-label">Semestre</label>
+                  <select class="form-control" id="semestre" name="semestre">
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                    <option value="S4">S4</option>
+                    <option value="S5">S5</option>
+                    <option value="S6">S6</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="anneeScolaire" class="form-label">Année scolaire</label>
+                  <input type="text" class="form-control" id="anneeScolaire"
+                         name="anneeScolaire" th:value="${currentYear} + '-' + (${currentYear} + 1)">
+                </div>
+                <div class="col-md-4">
+                  <label for="statut" class="form-label">Statut</label>
+                  <select class="form-control" id="statut" name="statut">
+                    <option value="ACTIVE">Actif</option>
+                    <option value="PENDING">En attente</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-flex justify-content-between mt-4">
+              <a href="/admin/modules" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Retour aux modules
+              </a>
+              <div>
+                <button type="button" class="btn btn-secondary me-2" onclick="resetForm()">
+                  <i class="fas fa-redo me-1"></i> Réinitialiser
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-check me-1"></i> Confirmer l'affectation
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Fonction pour réinitialiser le formulaire
+  function resetForm() {
+      document.getElementById('affectationForm').reset();
+  }
+
+  // Validation du formulaire
+  document.getElementById('affectationForm').addEventListener('submit', function(e) {
+      const moduleId = document.getElementById('moduleId').value;
+      const filiereId = document.getElementById('filiereId').value;
+      const enseignantId = document.getElementById('enseignantId').value;
+
+      if (!moduleId) {
+          alert('Veuillez sélectionner un module');
+          e.preventDefault();
+          return false;
+      }
+
+      if (!filiereId) {
+          alert('Veuillez sélectionner une filière');
+          e.preventDefault();
+          return false;
+      }
+
+      if (!enseignantId) {
+          alert('Veuillez sélectionner un enseignant');
+          e.preventDefault();
+          return false;
+      }
+
+      return true;
+  });
+
+  // Afficher un message de confirmation
+  document.getElementById('affectationForm').addEventListener('submit', function(e) {
+      const module = document.getElementById('moduleId').options[document.getElementById('moduleId').selectedIndex].text;
+      const filiere = document.getElementById('filiereId').options[document.getElementById('filiereId').selectedIndex].text;
+      const enseignant = document.getElementById('enseignantId').options[document.getElementById('enseignantId').selectedIndex].text;
+
+      if (!confirm(`Confirmez-vous l'affectation suivante ?\n\nModule: ${module}\nFilière: ${filiere}\nEnseignant: ${enseignant}`)) {
+          e.preventDefault();
+      }
+  });
+</script>
+</body>
+</html>

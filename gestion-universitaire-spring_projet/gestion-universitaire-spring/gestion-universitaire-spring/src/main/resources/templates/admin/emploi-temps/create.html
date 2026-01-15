@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Nouvelle séance</title>
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-plus-circle"></i> Nouvelle séance</h1>
+        <a href="/admin/emploi-temps" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-calendar-plus"></i> Informations de la séance</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/emploi-temps/create}" method="post" th:object="${seanceDTO}">
+                        <!-- Messages d'erreur globaux -->
+                        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+                            <ul class="mb-0">
+                                <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+
+                        <!-- Messages de succès -->
+                        <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+                            <span th:text="${success}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+
+                        <div class="row">
+                            <!-- Module -->
+                            <div class="col-md-6 form-group">
+                                <label for="moduleId" class="form-label required">Module</label>
+                                <select class="form-select" id="moduleId" th:field="*{moduleId}" required>
+                                    <option value="">Sélectionnez un module</option>
+                                    <option th:each="module : ${modules}"
+                                            th:value="${module.id}"
+                                            th:text="${module.nom + ' - ' + module.filiere?.nom}">
+                                    </option>
+                                </select>
+                                <small th:if="${#fields.hasErrors('moduleId')}" class="text-danger">
+                                    <span th:errors="*{moduleId}"></span>
+                                </small>
+                            </div>
+
+                            <!-- Enseignant -->
+                            <div class="col-md-6 form-group">
+                                <label for="enseignantId" class="form-label required">Enseignant</label>
+                                <select class="form-select" id="enseignantId" th:field="*{enseignantId}" required>
+                                    <option value="">Sélectionnez un enseignant</option>
+                                    <option th:each="enseignant : ${enseignants}"
+                                            th:value="${enseignant.id}"
+                                            th:text="${enseignant.nom + ' ' + enseignant.prenom + ' - ' + enseignant.specialite}">
+                                    </option>
+                                </select>
+                                <small th:if="${#fields.hasErrors('enseignantId')}" class="text-danger">
+                                    <span th:errors="*{enseignantId}"></span>
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Groupe -->
+                            <div class="col-md-6 form-group">
+                                <label for="groupe" class="form-label required">Groupe</label>
+                                <input type="text" class="form-control" id="groupe" th:field="*{groupe}"
+                                       placeholder="Ex: G1, G2, TP1, etc." required>
+                                <small th:if="${#fields.hasErrors('groupe')}" class="text-danger">
+                                    <span th:errors="*{groupe}"></span>
+                                </small>
+                            </div>
+
+                            <!-- Salle -->
+                            <div class="col-md-6 form-group">
+                                <label for="salleId" class="form-label required">Salle</label>
+                                <select class="form-select" id="salleId" th:field="*{salleId}" required>
+                                    <option value="">Sélectionnez une salle</option>
+                                    <option th:each="salle : ${salles}"
+                                            th:value="${salle.id}"
+                                            th:text="${salle.nom + ' (' + salle.typeSalle + ') - Capacité: ' + salle.capacite}">
+                                    </option>
+                                </select>
+                                <small th:if="${#fields.hasErrors('salleId')}" class="text-danger">
+                                    <span th:errors="*{salleId}"></span>
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Date et heure -->
+                            <div class="col-md-6 form-group">
+                                <label for="dateHeure" class="form-label required">Date et heure</label>
+                                <input type="datetime-local" class="form-control" id="dateHeure"
+                                       th:field="*{dateHeure}" required>
+                                <small th:if="${#fields.hasErrors('dateHeure')}" class="text-danger">
+                                    <span th:errors="*{dateHeure}"></span>
+                                </small>
+                            </div>
+
+                            <!-- Durée -->
+                            <div class="col-md-6 form-group">
+                                <label for="duree" class="form-label required">Durée (minutes)</label>
+                                <input type="number" class="form-control" id="duree" th:field="*{duree}"
+                                       min="30" max="240" step="30" value="90" required>
+                                <small class="form-text text-muted">
+                                    Durée en minutes (30, 60, 90, 120, etc.)
+                                </small>
+                                <small th:if="${#fields.hasErrors('duree')}" class="text-danger">
+                                    <span th:errors="*{duree}"></span>
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Type de séance -->
+                        <div class="form-group">
+                            <label for="typeSeance" class="form-label">Type de séance</label>
+                            <select class="form-select" id="typeSeance" th:field="*{typeSeance}">
+                                <option value="">Sélectionnez un type</option>
+                                <option value="CM">Cours Magistral (CM)</option>
+                                <option value="TD">Travaux Dirigés (TD)</option>
+                                <option value="TP">Travaux Pratiques (TP)</option>
+                                <option value="COURS">Cours général</option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('typeSeance')}" class="text-danger">
+                                <span th:errors="*{typeSeance}"></span>
+                            </small>
+                        </div>
+
+                        <!-- Boutons -->
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-success me-2">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                            <a href="/admin/emploi-temps" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Annuler
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar d'aide -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Informations</h5>
+                </div>
+                <div class="card-body">
+                    <h6><i class="fas fa-lightbulb"></i> Conseils :</h6>
+                    <ul class="small">
+                        <li>Vérifiez la disponibilité de la salle avant d'ajouter une séance</li>
+                        <li>Assurez-vous que l'enseignant n'a pas d'autres séances à la même heure</li>
+                        <li>Les séances doivent être programmées aux heures de travail normales (8h-18h)</li>
+                        <li>La durée standard d'une séance est de 90 minutes</li>
+                    </ul>
+
+                    <h6 class="mt-3"><i class="fas fa-clock"></i> Horaires conseillés :</h6>
+                    <ul class="small">
+                        <li>CM : 8h-10h, 10h-12h, 14h-16h</li>
+                        <li>TD : 8h-10h, 10h-12h, 14h-16h, 16h-18h</li>
+                        <li>TP : 8h-12h, 14h-18h</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Vue rapide des salles disponibles -->
+            <div class="card mt-3">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="fas fa-door-open"></i> Salles disponibles</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>Salle</th>
+                                <th>Type</th>
+                                <th>Capacité</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="salle : ${salles}">
+                                <td th:text="${salle.nom}"></td>
+                                <td>
+                                        <span th:switch="${salle.typeSalle}" class="badge">
+                                            <span th:case="'AMPHI'" class="badge bg-primary">Amphi</span>
+                                            <span th:case="'TD'" class="badge bg-warning">TD</span>
+                                            <span th:case="'TP'" class="badge bg-success">TP</span>
+                                            <span th:case="'BUREAU'" class="badge bg-secondary">Bureau</span>
+                                            <span th:case="*" class="badge bg-info" th:text="${salle.typeSalle}"></span>
+                                        </span>
+                                </td>
+                                <td th:text="${salle.capacite}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+    // Script pour pré-remplir la date actuelle
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateHeureInput = document.getElementById('dateHeure');
+        if (dateHeureInput && !dateHeureInput.value) {
+            const now = new Date();
+            // Format YYYY-MM-DDTHH:mm
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            dateHeureInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        // Validation de la durée
+        const dureeInput = document.getElementById('duree');
+        if (dureeInput) {
+            dureeInput.addEventListener('change', function() {
+                let value = parseInt(this.value);
+                if (value < 30) this.value = 30;
+                if (value > 240) this.value = 240;
+                // Arrondir à l'intervalle de 30 minutes
+                if (value % 30 !== 0) {
+                    this.value = Math.round(value / 30) * 30;
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

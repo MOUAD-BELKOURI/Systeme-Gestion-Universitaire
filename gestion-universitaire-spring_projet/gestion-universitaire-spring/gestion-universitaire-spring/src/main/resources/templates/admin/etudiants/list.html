@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head}">
+    <title>Gestion des étudiants</title>
+</head>
+<body>
+<div th:replace="~{admin/layout :: sidebar}"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1><i class="fas fa-users"></i> Gestion des étudiants</h1>
+        <a href="/admin/etudiants/create" class="btn btn-success">
+            <i class="fas fa-user-plus"></i> Ajouter un étudiant
+        </a>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Ajoutez un message d'erreur -->
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Filière</th>
+                        <th>Groupe</th>
+                        <th>Niveau</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Vérifiez si la liste n'est pas null -->
+                    <tr th:if="${etudiants != null}" th:each="etudiant : ${etudiants}">
+                        <td th:text="${etudiant.id}"></td>
+                        <td th:text="${etudiant.nom + ' ' + etudiant.prenom}"></td>
+                        <td th:text="${etudiant.email}"></td>
+                        <td th:text="${etudiant.filiere != null ? etudiant.filiere.nom : 'Non assigné'}"></td>
+                        <td th:text="${etudiant.groupe != null ? etudiant.groupe : 'Non assigné'}"></td>
+                        <td th:text="${etudiant.niveau != null ? etudiant.niveau : 'Non spécifié'}"></td>
+                        <td>
+                            <a th:href="@{/admin/etudiants/{id}(id=${etudiant.id})}"
+                               class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a th:href="@{/admin/etudiants/{id}/edit(id=${etudiant.id})}"
+                               class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form th:action="@{/admin/etudiants/{id}/delete(id=${etudiant.id})}"
+                                  method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cet étudiant ?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <!-- Message si liste vide ou null -->
+                    <tr th:if="${etudiants == null or etudiants.isEmpty()}">
+                        <td colspan="7" class="text-center">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> Aucun étudiant trouvé
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

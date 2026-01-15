@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Salle - Administration</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        .card-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+        }
+        .info-card {
+            border-left: 4px solid;
+            transition: transform 0.2s;
+        }
+        .info-card:hover {
+            transform: translateY(-2px);
+        }
+        .stat-badge {
+            font-size: 0.9em;
+            padding: 5px 10px;
+        }
+        .seance-item {
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+        .seance-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav th:replace="~{fragments/navbar :: admin-navbar}"></nav>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: admin-sidebar}"></div>
+
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <!-- Header -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/admin/dashboard}">Tableau de bord</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/admin/salles}">Salles</a>
+                        </li>
+                        <li class="breadcrumb-item active">Détails</li>
+                    </ol>
+                </nav>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a th:href="@{/admin/salles}" class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-arrow-left me-1"></i>Retour
+                    </a>
+                    <a th:href="@{/admin/salles/edit/{id}(id=${salle.id})}"
+                       class="btn btn-primary">
+                        <i class="fas fa-edit me-1"></i>Modifier
+                    </a>
+                </div>
+            </div>
+
+            <!-- Messages Flash -->
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Informations de la salle -->
+            <div class="row mb-4">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-building me-2"></i>
+                                    <span th:text="${salle.nom}">Salle</span>
+                                </h4>
+                                <span th:if="${salle.disponible}"
+                                      class="badge bg-success stat-badge">
+                                        <i class="fas fa-check-circle me-1"></i>Disponible
+                                    </span>
+                                <span th:unless="${salle.disponible}"
+                                      class="badge bg-danger stat-badge">
+                                        <i class="fas fa-times-circle me-1"></i>Indisponible
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-muted mb-2">
+                                        <i class="fas fa-info-circle me-2"></i>Informations générales
+                                    </h6>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <strong>ID :</strong>
+                                            <span th:text="${salle.id}"></span>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong>Type :</strong>
+                                            <span class="badge bg-info" th:text="${salle.typeSalle}"></span>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong>Capacité :</strong>
+                                            <span class="badge bg-purple" th:text="${salle.capacite}"></span> places
+                                        </li>
+                                        <li>
+                                            <strong>Séances programmées :</strong>
+                                            <span class="badge bg-warning"
+                                                  th:text="${salle.nombreSeances != null ? salle.nombreSeances : 0}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-muted mb-2">
+                                        <i class="fas fa-chart-bar me-2"></i>Statistiques
+                                    </h6>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <div class="progress" style="height: 10px;">
+                                                <div class="progress-bar bg-success"
+                                                     role="progressbar"
+                                                     th:style="'width: ' + ${salle.disponible ? '100' : '0'} + '%'"
+                                                     aria-valuenow="100"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100"></div>
+                                            </div>
+                                            <small>Disponibilité</small>
+                                        </li>
+                                        <li class="mb-2">
+                                            <div class="progress" style="height: 10px;">
+                                                <div class="progress-bar bg-info"
+                                                     role="progressbar"
+                                                     th:style="'width: ' + ${(salle.nombreSeances != null && salle.nombreSeances > 10 ? 100 : salle.nombreSeances * 10)} + '%'"
+                                                     aria-valuenow="30"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100"></div>
+                                            </div>
+                                            <small>Taux d'occupation</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Actions rapides -->
+                    <div class="card shadow mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-bolt me-2"></i>Actions rapides
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <a th:href="@{/admin/emploi-temps/create?salleId={id}(id=${salle.id})}"
+                                   class="btn btn-success">
+                                    <i class="fas fa-plus-circle me-2"></i>Créer une séance
+                                </a>
+                                <a th:href="@{/admin/salles/edit/{id}(id=${salle.id})}"
+                                   class="btn btn-outline-primary">
+                                    <i class="fas fa-edit me-2"></i>Modifier
+                                </a>
+                                <button type="button"
+                                        class="btn btn-outline-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal">
+                                    <i class="fas fa-trash me-2"></i>Supprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code QR pour la salle -->
+                    <div class="card shadow">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-qrcode me-2"></i>Code QR
+                            </h6>
+                        </div>
+                        <div class="card-body text-center">
+                            <div id="qrcode" class="mb-3"></div>
+                            <small class="text-muted">
+                                Scanner pour voir les détails de la salle
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Séances programmées -->
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calendar-alt me-2"></i>Séances programmées
+                        <span class="badge bg-secondary ms-2"
+                              th:text="${#lists.size(seances)}">0</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div th:if="${#lists.isEmpty(seances)}" class="text-center py-4">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                        <h5>Aucune séance programmée</h5>
+                        <p class="text-muted">
+                            Cette salle n'a pas de séances programmées pour le moment.
+                        </p>
+                        <a th:href="@{/admin/emploi-temps/create?salleId={id}(id=${salle.id})}"
+                           class="btn btn-primary">
+                            <i class="fas fa-plus me-1"></i>Programmer une séance
+                        </a>
+                    </div>
+
+                    <div th:unless="${#lists.isEmpty(seances)}">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="seance-header">
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Enseignant</th>
+                                    <th>Date et Heure</th>
+                                    <th>Durée</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="seance : ${seances}">
+                                    <td>
+                                        <strong th:text="${seance.module.nom}">Module</strong>
+                                    </td>
+                                    <td>
+                                                <span th:text="${seance.enseignant.nom + ' ' + seance.enseignant.prenom}">
+                                                    Enseignant
+                                                </span>
+                                    </td>
+                                    <td>
+                                                <span th:text="${#dates.format(seance.dateHeure, 'dd/MM/yyyy HH:mm')}">
+                                                    01/01/2023 09:00
+                                                </span>
+                                    </td>
+                                    <td>
+                                                <span class="badge bg-info"
+                                                      th:text="${seance.duree + 'h'}">2h</span>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/admin/emploi-temps/edit/{id}(id=${seance.id})}"
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Modal de Suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Confirmer la suppression
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer la salle <strong th:text="${salle.nom}"></strong> ?</p>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong>Important :</strong>
+                    <span th:if="${salle.nombreSeances > 0}">
+                            Cette salle a <span th:text="${salle.nombreSeances}"></span> séance(s) programmée(s).
+                            La suppression sera impossible tant que des séances existent.
+                        </span>
+                    <span th:unless="${salle.nombreSeances > 0}">
+                            Cette action est irréversible.
+                        </span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Annuler
+                </button>
+                <form th:action="@{/admin/salles/delete/{id}(id=${salle.id})}" method="post">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            th:disabled="${salle.nombreSeances > 0}">
+                        <i class="fas fa-trash me-1"></i>
+                        <span th:text="${salle.nombreSeances > 0} ? 'Impossible de supprimer' : 'Supprimer'"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+
+        // Generate QR Code
+        if (typeof QRCode !== 'undefined') {
+            const qrcodeContainer = document.getElementById('qrcode');
+            if (qrcodeContainer) {
+                const salleName = document.querySelector('span[th\\:text="${salle.nom}"]')?.textContent || 'Salle';
+                const salleId = [[${salle.id}]];
+
+                const qrData = JSON.stringify({
+                    type: 'salle',
+                    id: salleId,
+                    name: salleName,
+                    url: window.location.href
+                });
+
+                new QRCode(qrcodeContainer, {
+                    text: qrData,
+                    width: 128,
+                    height: 128,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
