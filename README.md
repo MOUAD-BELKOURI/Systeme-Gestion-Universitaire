@@ -75,16 +75,4 @@ Ce projet est sous licence MIT.
 
 ---
 
-## ✅ Comment l’ajouter sur GitHub
-
-1. Crée un fichier `README.md` à la racine de ton projet
-2. Colle le texte ci-dessus
-3. Puis exécute :
-
-```bash
-git add README.md
-git commit -m "Add README"
-git push
-
-
 
