@@ -24,6 +24,7 @@ Le **Système de Gestion Universitaire (SGU)** est une application web destinée
 - **Outils** : IntelliJ IDEA, Git, GitHub
 
 ---
+![Tableau de bord du système de gestion universitaire](https://github.com/MOUAD-BELKOURI/Systeme-Gestion-Universitaire/blob/main/dasbord.jpeg?raw=true)
 
 ## ⚙️ Installation et exécution
 
