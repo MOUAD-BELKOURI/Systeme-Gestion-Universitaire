@@ -69,10 +69,3 @@ Mouad Belkouri
 
 Étudiant ingénieur en informatique
 
-📄 Licence
-
-Ce projet est sous licence MIT.
-
----
-
-
